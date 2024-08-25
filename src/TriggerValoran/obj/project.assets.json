@@ -5246,11 +5246,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rider666\\Desktop\\TriggerValoran\\TriggerValoran\\TriggerValoran.csproj",
+      "projectUniqueName": "C:\\Users\\Rider666\\Desktop\\ColorBot\\src\\TriggerValoran\\TriggerValoran.csproj",
       "projectName": "TriggerValoran",
-      "projectPath": "C:\\Users\\Rider666\\Desktop\\TriggerValoran\\TriggerValoran\\TriggerValoran.csproj",
+      "projectPath": "C:\\Users\\Rider666\\Desktop\\ColorBot\\src\\TriggerValoran\\TriggerValoran.csproj",
       "packagesPath": "C:\\Users\\Rider666\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rider666\\Desktop\\TriggerValoran\\TriggerValoran\\obj\\",
+      "outputPath": "C:\\Users\\Rider666\\Desktop\\ColorBot\\src\\TriggerValoran\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rider666\\AppData\\Roaming\\NuGet\\NuGet.Config"

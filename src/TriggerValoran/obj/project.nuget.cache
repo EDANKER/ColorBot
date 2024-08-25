@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G6qpLhZtV4C60qxRgYjcgK2ZQeM69UFQ1RTsbZqoYHonCMw6c6Eq0x2Ilffhfv+UDtML8lFqFiLUWNIDyz96dw==",
+  "dgSpecHash": "BqPtVUc+RL3TAGkt27DPtdfoc2Qv+UpvymJw2kSn97U7pKrxSmNu9trbGIyw6UrGmRGVYa2YDbNyaCzQm3cW5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rider666\\Desktop\\TriggerValoran\\TriggerValoran\\TriggerValoran.csproj",
+  "projectFilePath": "C:\\Users\\Rider666\\Desktop\\ColorBot\\src\\TriggerValoran\\TriggerValoran.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rider666\\.nuget\\packages\\costura.fody\\5.8.0-alpha0098\\costura.fody.5.8.0-alpha0098.nupkg.sha512",
     "C:\\Users\\Rider666\\.nuget\\packages\\fody\\6.6.0\\fody.6.6.0.nupkg.sha512",

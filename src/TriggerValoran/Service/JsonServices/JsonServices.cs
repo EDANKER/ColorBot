@@ -11,7 +11,7 @@ public class JsonServices<T> : IJsonServices<T>
         try
         {
             return JsonConvert.DeserializeObject<T>(
-                File.ReadAllText(@"C:\Users\Rider666\Desktop\TriggerValoran\TriggerValoran\Data\Json\dataTrigger.json"));
+                File.ReadAllText("dataTrigger.json"));
         }
         catch (Exception e)
         {
@@ -24,7 +24,7 @@ public class JsonServices<T> : IJsonServices<T>
     {
         try
         {
-            using StreamWriter streamWriter = File.CreateText(@"C:\Users\Rider666\Desktop\TriggerValoran\TriggerValoran\Data\Json\dataTrigger.json");
+            using StreamWriter streamWriter = File.CreateText("dataTrigger.json");
             JsonSerializer serializer = new JsonSerializer();
             serializer.Serialize(streamWriter, item);
 
