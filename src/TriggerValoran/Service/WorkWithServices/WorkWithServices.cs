@@ -1,82 +1,75 @@
 ﻿using System.Drawing;
-using System.Windows;
 using TriggerValoran.Interfase.IColorServices;
 using TriggerValoran.Interfase.IEvenClickServices;
 using TriggerValoran.Interfase.IJsonServices;
+using TriggerValoran.Interfase.IMemoryButtonServices;
 using TriggerValoran.Interfase.IScreenServices;
 using TriggerValoran.Interfase.IWorkWithServices;
+using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.WorkWithServices;
 
-public class WorkWithServices<T>(
+public class WorkWithServices(
     IColorServices colorServices,
     IEvenServices evenServices,
     IScreenServices screenServices,
-    IJsonServices<T> jsonServices) : IWorkWithServices<T>
+    IJsonServices<TriggerSettings> TjsonServices,
+    IJsonServices<MemoryButton> BjsonServices,
+    IButtonServices buttonServices) : IWorkWithServices
 {
-    private IJsonServices<T> _jsonServices = jsonServices;
-    private IColorServices ColorServices { get; } = colorServices;
-    private IEvenServices EvenServices { get; } = evenServices;
-    private IScreenServices ScreenServices { get; } = screenServices;
-
-    public bool ItemButtonClick()
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool ItemButtonState()
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<byte> ItemButtonAll()
-    {
-        throw new NotImplementedException();
-    }
-
     public bool Start(TriggerSettings triggerSettings)
     {
-        Bitmap? bitmap = ScreenServices.GetScreen();
+        Bitmap? bitmap = screenServices.GetScreen();
         if (bitmap != null)
-            return ColorServices.ItemColor(bitmap,
+            return colorServices.ItemColor(bitmap,
                 triggerSettings.BoxSizeX, triggerSettings.BoxSizeY, triggerSettings.BoxColor);
         return false;
     }
 
     public bool SitDown()
     {
-        return EvenServices.SitDown();
+        return evenServices.SitDown();
     }
 
     public bool WalkStop()
     {
-        return EvenServices.WalkStop();
+        return evenServices.WalkStop();
     }
 
     public bool Fire(int count, int sleepRepeatFire, int sleepOneFire)
     {
-        return EvenServices.Fire(count, sleepRepeatFire, sleepOneFire);
-    }
-    
-    public bool ClickForStart()
-    {
-        return EvenServices.ClickForStart();
+        return evenServices.Fire(count, sleepRepeatFire, sleepOneFire);
     }
 
-    public bool SaveSettings(T item)
+    public bool ClickForStart()
     {
-        bool isSave = _jsonServices.Ser(item, "dataTrigger.json");
+        return evenServices.ClickForStart();
+    }
+
+    public bool SaveSettings(List<TriggerSettings> item, string file)
+    {
+        bool isSave = TjsonServices.Ser(item, file);
         if (!isSave)
             throw new NullReferenceException();
         return isSave;
     }
 
-    public T GetSaveSettings()
+    public TriggerSettings GetSaveSettings(string file)
     {
-        T? triggerSettings = _jsonServices.Des("dataTrigger.json");
+        TriggerSettings? triggerSettings = TjsonServices.Des(file);
         if (triggerSettings == null)
             throw new NullReferenceException();
         return triggerSettings;
+    }
+
+    public bool SaveButton(string file)
+    {
+        throw new NotImplementedException();
+    }
+
+    public MemoryButton GetSaveButton(string file)
+    {
+        throw new NotImplementedException();
     }
 }

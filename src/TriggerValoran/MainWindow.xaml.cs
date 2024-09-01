@@ -1,29 +1,15 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+﻿using System.Windows;
 using System.Windows.Threading;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using TriggerValoran.Interfase;
 using TriggerValoran.Interfase.IColorServices;
 using TriggerValoran.Interfase.IEvenClickServices;
 using TriggerValoran.Interfase.IJsonServices;
+using TriggerValoran.Interfase.IMemoryButtonServices;
 using TriggerValoran.Interfase.IScreenServices;
 using TriggerValoran.Interfase.ITriggerServices;
+using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.TriggerSettings;
+using TriggerValoran.Service.ButtonServices;
 using TriggerValoran.Service.ColorServices;
-using TriggerValoran.Service.DllServices;
 using TriggerValoran.Service.EvenServices;
 using TriggerValoran.Service.JsonServices;
 using TriggerValoran.Service.ScreenServices;
@@ -35,12 +21,14 @@ namespace TriggerValoran;
 
 public partial class MainWindow : Window
 {
+    private IButtonServices _buttonServices;
     private ITriggerServices _triggerServices;
     private IColorServices _colorServices;
     private IEvenServices _evenServices;
     private IScreenServices _screenServices;
-    private DispatcherTimer _dispatcherTimer;
-    private IJsonServices<TriggerSettings> _jsonServices;
+    private readonly DispatcherTimer _dispatcherTimer;
+    private IJsonServices<TriggerSettings> _TjsonServices;
+    private IJsonServices<MemoryButton> _BjsonServices;
 
     private int _boxY;
     private int _boxX;
@@ -67,13 +55,15 @@ public partial class MainWindow : Window
     {
         if (_triggerServices == null)
         {
+            _buttonServices = new ButtonServices();
             _colorServices = new ColorServices();
-            _evenServices = new EvenServices();
+            _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();
-            _jsonServices = new JsonServices<TriggerSettings>();
+            _TjsonServices = new JsonServices<TriggerSettings>();
+            _BjsonServices = new JsonServices<MemoryButton>();
             _triggerServices =
-                new TriggerServices(new WorkWithServices<TriggerSettings>(_colorServices, _evenServices, _screenServices,
-                    _jsonServices));
+                new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
+                    _TjsonServices, _BjsonServices, _buttonServices));
         }
 
         _triggerServices.Trigger(

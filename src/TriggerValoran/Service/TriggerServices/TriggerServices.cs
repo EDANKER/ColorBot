@@ -1,15 +1,16 @@
 ﻿using System.Windows.Threading;
-using TriggerValoran.Interfase;
 using TriggerValoran.Interfase.ITriggerServices;
 using TriggerValoran.Interfase.IWorkWithServices;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.TriggerServices;
 
-public class TriggerServices(IWorkWithServices<TriggerSettings> workWithServices) : ITriggerServices
+public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServices
 {
     public bool Trigger(TriggerSettings triggerSettings, DispatcherTimer dispatcherTimer)
     {
+        workWithServices.SaveButton("");
+        
         while (workWithServices.ClickForStart())
         {
             if (dispatcherTimer.IsEnabled)
@@ -34,16 +35,11 @@ public class TriggerServices(IWorkWithServices<TriggerSettings> workWithServices
 
     public bool Save(TriggerSettings triggerSettings)
     {
-        return workWithServices.SaveSettings(triggerSettings);
+        return workWithServices.SaveSettings(new List<TriggerSettings>(), "dataTrigger.json");
     }
 
     public TriggerSettings GetSave()
     {
-        return workWithServices.GetSaveSettings();
-    }
-
-    public string GetNameButton()
-    {
-        return "";
+        return workWithServices.GetSaveSettings("dataTrigger.json");
     }
 }

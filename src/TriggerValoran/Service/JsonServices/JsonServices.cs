@@ -20,7 +20,7 @@ public class JsonServices<T> : IJsonServices<T>
         }
     }
 
-    public bool Ser(T item, string file)
+    public bool Ser(List<T> item, string file)
     {
         try
         {
