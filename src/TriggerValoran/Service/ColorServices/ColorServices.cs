@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using TriggerValoran.Interfase.IColorServices;
-using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.ColorServices;
 
@@ -38,7 +37,7 @@ public class ColorServices : IColorServices
                 int x = bitmap.Width / 2;
                 int y = bitmap.Height / 2;
 
-                for (int i = x - boxSizeX; i < x + boxSizeX; i++)
+                for (int i = x - boxSizeX; i < x + boxSizeX;)
                 {
                     for (int j = y - boxSizeY; j < y + boxSizeY; j++)
                     {
@@ -71,7 +70,7 @@ public class ColorServices : IColorServices
 
             return false;
         }
-        catch
+        catch(Exception)
         {
             return false;
         }

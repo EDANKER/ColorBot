@@ -6,12 +6,12 @@ namespace TriggerValoran.Service.JsonServices;
 
 public class JsonServices<T> : IJsonServices<T>
 {
-    public T? Des()
+    public T? Des(string file)
     {
         try
         {
             return JsonConvert.DeserializeObject<T>(
-                File.ReadAllText("dataTrigger.json"));
+                File.ReadAllText(file));
         }
         catch (Exception e)
         {
@@ -20,11 +20,11 @@ public class JsonServices<T> : IJsonServices<T>
         }
     }
 
-    public bool Ser(T item)
+    public bool Ser(T item, string file)
     {
         try
         {
-            using StreamWriter streamWriter = File.CreateText("dataTrigger.json");
+            using StreamWriter streamWriter = File.CreateText(file);
             JsonSerializer serializer = new JsonSerializer();
             serializer.Serialize(streamWriter, item);
 

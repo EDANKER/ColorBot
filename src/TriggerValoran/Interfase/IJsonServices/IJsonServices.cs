@@ -2,6 +2,6 @@
 
 public interface IJsonServices<T>
 {
-    T? Des();
-    bool Ser(T item);
+    T? Des(string file);
+    bool Ser(T item, string file);
 }

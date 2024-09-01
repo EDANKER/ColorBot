@@ -1,5 +1,5 @@
 ﻿using TriggerValoran.Interfase.IEvenClickServices;
-using TriggerValoran.Model.MemoryIntButton;
+using TriggerValoran.Model.MemoryButton;
 
 namespace TriggerValoran.Service.EvenServices;
 
@@ -12,8 +12,8 @@ public class EvenServices : IEvenServices
             for (int i = 0; i < count; i++)
             {
                 Thread.Sleep(sleepOneFire);
-                DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardV, 0, ButtonMemory.KeyDown, IntPtr.Zero);
-                DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardV, 0, ButtonMemory.KeyUp, IntPtr.Zero);
+                DllServices.DllServices.keybd_event(MemoryButton.Fire, 0, MemoryButton.KeyDown, IntPtr.Zero);
+                DllServices.DllServices.keybd_event(MemoryButton.Fire, 0, MemoryButton.KeyUp, IntPtr.Zero);
                 Thread.Sleep(sleepRepeatFire);
             }
 
@@ -30,10 +30,10 @@ public class EvenServices : IEvenServices
     {
         try
         {
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardW, 0, ButtonMemory.KeyUp, IntPtr.Zero);
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardA, 0, ButtonMemory.KeyUp, IntPtr.Zero);
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardD, 0, ButtonMemory.KeyUp, IntPtr.Zero);
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardS, 0, ButtonMemory.KeyUp, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.Move[0], 0, MemoryButton.KeyUp, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.Move[1], 0, MemoryButton.KeyUp, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.Move[2], 0, MemoryButton.KeyUp, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.Move[3], 0, MemoryButton.KeyUp, IntPtr.Zero);
 
             return true;
         }
@@ -48,9 +48,9 @@ public class EvenServices : IEvenServices
     {
         try
         {
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardCtrl, 0, ButtonMemory.KeyDown, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.SitDown, 0, MemoryButton.KeyDown, IntPtr.Zero);
             Thread.Sleep(500);
-            DllServices.DllServices.keybd_event(ButtonMemory.KeyBoardCtrl, 0, ButtonMemory.KeyUp, IntPtr.Zero);
+            DllServices.DllServices.keybd_event(MemoryButton.SitDown, 0, MemoryButton.KeyUp, IntPtr.Zero);
 
             return true;
         }
@@ -65,12 +65,11 @@ public class EvenServices : IEvenServices
     {
         try
         {
-            if (DllServices.DllServices.GetKeyState(ButtonMemory.KeyLeftShift) > 2)
+            if (DllServices.DllServices.GetKeyState(MemoryButton.Start) > 2)
                 return true;
-
             return false;
         }
-        catch
+        catch(Exception)
         {
             return false;
         }

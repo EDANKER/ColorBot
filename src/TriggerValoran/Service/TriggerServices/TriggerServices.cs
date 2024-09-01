@@ -6,7 +6,7 @@ using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.TriggerServices;
 
-public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServices
+public class TriggerServices(IWorkWithServices<TriggerSettings> workWithServices) : ITriggerServices
 {
     public bool Trigger(TriggerSettings triggerSettings, DispatcherTimer dispatcherTimer)
     {
@@ -34,12 +34,12 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
 
     public bool Save(TriggerSettings triggerSettings)
     {
-        return workWithServices.Save(triggerSettings);
+        return workWithServices.SaveSettings(triggerSettings);
     }
 
     public TriggerSettings GetSave()
     {
-        return workWithServices.GetSave();
+        return workWithServices.GetSaveSettings();
     }
 
     public string GetNameButton()

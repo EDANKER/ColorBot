@@ -21,7 +21,6 @@ using TriggerValoran.Interfase.IEvenClickServices;
 using TriggerValoran.Interfase.IJsonServices;
 using TriggerValoran.Interfase.IScreenServices;
 using TriggerValoran.Interfase.ITriggerServices;
-using TriggerValoran.Model.MemoryIntButton;
 using TriggerValoran.Model.TriggerSettings;
 using TriggerValoran.Service.ColorServices;
 using TriggerValoran.Service.DllServices;
@@ -73,7 +72,7 @@ public partial class MainWindow : Window
             _screenServices = new ScreenServices();
             _jsonServices = new JsonServices<TriggerSettings>();
             _triggerServices =
-                new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
+                new TriggerServices(new WorkWithServices<TriggerSettings>(_colorServices, _evenServices, _screenServices,
                     _jsonServices));
         }
 

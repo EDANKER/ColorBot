@@ -9,16 +9,31 @@ using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.WorkWithServices;
 
-public class WorkWithServices(
+public class WorkWithServices<T>(
     IColorServices colorServices,
     IEvenServices evenServices,
     IScreenServices screenServices,
-    IJsonServices<TriggerSettings> jsonServices) : IWorkWithServices
+    IJsonServices<T> jsonServices) : IWorkWithServices<T>
 {
-    private IJsonServices<TriggerSettings> _jsonServices = jsonServices;
+    private IJsonServices<T> _jsonServices = jsonServices;
     private IColorServices ColorServices { get; } = colorServices;
     private IEvenServices EvenServices { get; } = evenServices;
     private IScreenServices ScreenServices { get; } = screenServices;
+
+    public bool ItemButtonClick()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool ItemButtonState()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<byte> ItemButtonAll()
+    {
+        throw new NotImplementedException();
+    }
 
     public bool Start(TriggerSettings triggerSettings)
     {
@@ -49,21 +64,19 @@ public class WorkWithServices(
         return EvenServices.ClickForStart();
     }
 
-    public bool Save(TriggerSettings triggerSettings)
+    public bool SaveSettings(T item)
     {
-        bool isSave = _jsonServices.Ser(triggerSettings);
+        bool isSave = _jsonServices.Ser(item, "dataTrigger.json");
         if (!isSave)
             throw new NullReferenceException();
-        
-        return _jsonServices.Ser(triggerSettings);
+        return isSave;
     }
 
-    public TriggerSettings GetSave()
+    public T GetSaveSettings()
     {
-        TriggerSettings? triggerSettings = _jsonServices.Des();
+        T? triggerSettings = _jsonServices.Des("dataTrigger.json");
         if (triggerSettings == null)
             throw new NullReferenceException();
-        
         return triggerSettings;
     }
 }

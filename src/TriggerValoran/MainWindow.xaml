@@ -22,7 +22,7 @@
             <ToggleButton x:Name="IsWalkStop" Content="Включить остановку" Checked="WalkStop" Unchecked="OffWalkStop"></ToggleButton>
         </StackPanel>
         <StackPanel Width="300" Background="#212121" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
-            <Image HorizontalAlignment="Center" Width="200" Source="./Data/Photo/Снимок экрана 2024-08-15 032605.png"></Image>
+            <Image HorizontalAlignment="Center" Width="200" Source="./Data/Photo/Enemy.png"></Image>
             <Button x:Name="NameItemColor" Click="OpenColor" Content="Фиолетовый"></Button>
             <Popup Placement="Center" StaysOpen="False" x:Name="Color">
                 <ListBox>
