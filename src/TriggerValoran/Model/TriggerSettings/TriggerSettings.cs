@@ -1,11 +1,7 @@
 ﻿namespace TriggerValoran.Model.TriggerSettings;
 
-public class TriggerSettings(int count, int boxSizeX, int boxSizeY, int sleepTimeRepeatFire, int sleepTimeOneFire, string boxColor, bool sitDown, bool walkStop, int buttonStart, int buttonFire, int buttonSitDown, int buttonWalkStop)
+public class TriggerSettings(int count, int boxSizeX, int boxSizeY, int sleepTimeRepeatFire, int sleepTimeOneFire, string boxColor, bool sitDown, bool walkStop, SettingsButton.SettingsButton settingsButton)
 {
-    public int ButtonStart { get; set; } = buttonStart;
-    public int ButtonFire { get; set; } = buttonFire;
-    public int ButtonSitDown { get; set; } = buttonSitDown;
-    public int ButtonWalkStop { get; set; } = buttonWalkStop;
     public int Count { get; set; } = count;
     public int BoxSizeX { get; set; } = boxSizeX;
     public int BoxSizeY { get; set; } = boxSizeY;
@@ -14,4 +10,5 @@ public class TriggerSettings(int count, int boxSizeX, int boxSizeY, int sleepTim
     public string BoxColor { get; set; } = boxColor;
     public bool SitDown { get; set; } = sitDown;
     public bool WalkStop { get; set; } = walkStop;
+    public SettingsButton.SettingsButton SettingsButton { get; set; } = settingsButton;
 }

@@ -4,7 +4,7 @@ namespace TriggerValoran.Interfase.IMemoryButtonServices;
 
 public interface IButtonServices
 {
-    bool ItemButtonClick(byte memoryButton, byte state);
+    bool ItemButtonClick(byte memoryButton, int state, int count);
     bool ItemButtonState(byte memoryButton);
     List<MemoryButton> ItemButtonAll();
 }

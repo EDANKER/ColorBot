@@ -9,7 +9,7 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
 {
     public bool Trigger(TriggerSettings triggerSettings, DispatcherTimer dispatcherTimer)
     {
-        workWithServices.SaveButton("");
+        workWithServices.SaveButton("dataButton.json");
         
         while (workWithServices.ClickForStart())
         {

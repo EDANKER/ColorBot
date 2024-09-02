@@ -1,5 +1,4 @@
 ﻿using TriggerValoran.Interfase.IMemoryButtonServices;
-using TriggerValoran.Interfase.IWorkWithServices;
 using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.SettingsButton;
 
@@ -7,11 +6,24 @@ namespace TriggerValoran.Service.ButtonServices;
 
 public class ButtonServices() : IButtonServices
 {
-    public bool ItemButtonClick(byte memoryButton, byte state)
+    private static byte Start { get; set; }
+    
+    public bool ItemButtonClick(byte memoryButton, int state, int count)
     {
         try
         {
-            DllServices.DllServices.keybd_event(memoryButton, 0, state, IntPtr.Zero);
+            for (int i = 0; i < count; i++)
+            {
+                if (state == 1)
+                {
+                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x20, IntPtr.Zero);
+                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x21, IntPtr.Zero);
+                }
+                else
+                {
+                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x20, IntPtr.Zero);
+                }
+            }
             return true;
         }
         catch (Exception e)
@@ -25,7 +37,7 @@ public class ButtonServices() : IButtonServices
     {
         try
         {
-            return DllServices.DllServices.GetKeyState(SettingsButton.Start) > 2;
+            return DllServices.DllServices.GetKeyState(Start) > 2;
         }
         catch (Exception e)
         {

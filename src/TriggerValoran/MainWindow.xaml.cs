@@ -5,8 +5,10 @@ using TriggerValoran.Interfase.IEvenClickServices;
 using TriggerValoran.Interfase.IJsonServices;
 using TriggerValoran.Interfase.IMemoryButtonServices;
 using TriggerValoran.Interfase.IScreenServices;
+using TriggerValoran.Interfase.ISleepServices;
 using TriggerValoran.Interfase.ITriggerServices;
 using TriggerValoran.Model.MemoryButton;
+using TriggerValoran.Model.SettingsButton;
 using TriggerValoran.Model.TriggerSettings;
 using TriggerValoran.Service.ButtonServices;
 using TriggerValoran.Service.ColorServices;
@@ -63,11 +65,11 @@ public partial class MainWindow : Window
             _BjsonServices = new JsonServices<MemoryButton>();
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                    _TjsonServices, _BjsonServices, _buttonServices));
+                    _TjsonServices, _BjsonServices));
         }
 
         _triggerServices.Trigger(
-            new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime,_boxColor, _isSitDown, _isWalkStop, 1, 1, 1, 1),
+            new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime,_boxColor, _isSitDown, _isWalkStop, new SettingsButton()),
             _dispatcherTimer);
     }
 
@@ -172,7 +174,7 @@ public partial class MainWindow : Window
     private void Save(object sender, RoutedEventArgs e)
     {
         _triggerServices.Save(new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
-            _isSitDown, _isWalkStop, 1, 1, 1, 1));
+            _isSitDown, _isWalkStop, new SettingsButton()));
     }
 
     private void Get(object sender, RoutedEventArgs e)
