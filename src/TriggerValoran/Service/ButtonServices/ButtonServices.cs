@@ -1,4 +1,4 @@
-﻿using TriggerValoran.Interfase.IMemoryButtonServices;
+﻿using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.SettingsButton;
 
@@ -8,7 +8,7 @@ public class ButtonServices() : IButtonServices
 {
     private static byte Start { get; set; }
     
-    public bool ItemButtonClick(byte memoryButton, int state, int count)
+    public bool ItemButtonClick(byte memoryButton, int state, int count, byte up, byte down)
     {
         try
         {
@@ -16,12 +16,12 @@ public class ButtonServices() : IButtonServices
             {
                 if (state == 1)
                 {
-                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x20, IntPtr.Zero);
-                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x21, IntPtr.Zero);
+                    DllServices.DllServices.keybd_event(memoryButton, 0, down, IntPtr.Zero);
+                    DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
                 }
                 else
                 {
-                    DllServices.DllServices.keybd_event(memoryButton, 0, 0x20, IntPtr.Zero);
+                    DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
                 }
             }
             return true;
@@ -48,6 +48,9 @@ public class ButtonServices() : IButtonServices
 
     public List<MemoryButton> ItemButtonAll()
     {
-        throw new NotImplementedException();
+        MemoryButton memoryButton = new MemoryButton("Ctrl", 0x22);
+        List<MemoryButton> list = new List<MemoryButton>();
+        list.Add(memoryButton);
+        return list;
     }
 }

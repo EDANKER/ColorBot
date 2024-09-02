@@ -1,4 +1,4 @@
-﻿using TriggerValoran.Interfase.ISleepServices;
+﻿using TriggerValoran.Interface.ISleepServices;
 
 namespace TriggerValoran.Service.SleepServices;
 

@@ -1,4 +1,4 @@
-﻿namespace TriggerValoran.Interfase.IJsonServices;
+﻿namespace TriggerValoran.Interface.IJsonServices;
 
 public interface IJsonServices<T>
 {

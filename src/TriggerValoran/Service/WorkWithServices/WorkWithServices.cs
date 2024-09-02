@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
-using TriggerValoran.Interfase.IColorServices;
-using TriggerValoran.Interfase.IEvenClickServices;
-using TriggerValoran.Interfase.IJsonServices;
-using TriggerValoran.Interfase.IScreenServices;
-using TriggerValoran.Interfase.IWorkWithServices;
+using TriggerValoran.Interface.IColorServices;
+using TriggerValoran.Interface.IEvenClickServices;
+using TriggerValoran.Interface.IJsonServices;
+using TriggerValoran.Interface.IScreenServices;
+using TriggerValoran.Interface.IWorkWithServices;
 using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.TriggerSettings;
 
@@ -13,44 +13,45 @@ public class WorkWithServices(
     IColorServices colorServices,
     IEvenServices evenServices,
     IScreenServices screenServices,
-    IJsonServices<TriggerSettings> TjsonServices,
-    IJsonServices<MemoryButton> BjsonServices) : IWorkWithServices
+    IJsonServices<TriggerSettings> tJsonServices,
+    IJsonServices<MemoryButton> bJsonServices) : IWorkWithServices
 {
-    private TriggerSettings _triggerSettings;
-    
+
     public bool Start(TriggerSettings triggerSettings)
     {
-        _triggerSettings = triggerSettings;
         Bitmap? bitmap = screenServices.GetScreen();
         if (bitmap != null)
             return colorServices.ItemColor(bitmap,
-                _triggerSettings.BoxSizeX, _triggerSettings.BoxSizeY, _triggerSettings.BoxColor);
+                triggerSettings.BoxSizeX, triggerSettings.BoxSizeY, triggerSettings.BoxColor);
         return false;
     }
 
-    public bool SitDown()
+    public bool SitDown(TriggerSettings triggerSettings)
     {
-        return evenServices.SitDown(1, _triggerSettings.SettingsButton.SitDown, 50);
+        return evenServices.SitDown(1, triggerSettings.SettingsButton.SitDown, 50,
+            triggerSettings.SettingsButton.KeyUp, triggerSettings.SettingsButton.KeyUp);
     }
 
-    public bool WalkStop()
+    public bool WalkStop(TriggerSettings triggerSettings)
     {
-        return evenServices.WalkStop(1, _triggerSettings.SettingsButton.Move, 0);
+        return evenServices.WalkStop(1, triggerSettings.SettingsButton.Move, 0, triggerSettings.SettingsButton.KeyUp,
+            triggerSettings.SettingsButton.KeyUp);
     }
 
-    public bool Fire(int count, int sleepRepeatFire, int sleepOneFire)
+    public bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire)
     {
-        return evenServices.Fire(1, _triggerSettings.SettingsButton.Fire, sleepRepeatFire, sleepOneFire);
+        return evenServices.Fire(1, triggerSettings.SettingsButton.Fire, sleepRepeatFire, sleepOneFire,
+            triggerSettings.SettingsButton.KeyUp, triggerSettings.SettingsButton.KeyUp);
     }
 
-    public bool ClickForStart()
+    public bool ClickForStart(TriggerSettings triggerSettings)
     {
-        return evenServices.ClickForStart(_triggerSettings.SettingsButton.Fire);
+        return evenServices.ClickForStart(triggerSettings.SettingsButton.Start);
     }
 
     public bool SaveSettings(List<TriggerSettings> item, string file)
     {
-        bool isSave = TjsonServices.Ser(item, file);
+        bool isSave = tJsonServices.Ser(item, file);
         if (!isSave)
             throw new NullReferenceException();
         return isSave;
@@ -58,7 +59,7 @@ public class WorkWithServices(
 
     public TriggerSettings GetSaveSettings(string file)
     {
-        TriggerSettings? triggerSettings = TjsonServices.Des(file);
+        TriggerSettings? triggerSettings = tJsonServices.Des(file);
         if (triggerSettings == null)
             throw new NullReferenceException();
         return triggerSettings;
@@ -66,7 +67,7 @@ public class WorkWithServices(
 
     public bool SaveButton(string file)
     {
-        bool isSave = BjsonServices.Ser(evenServices.ItemButtonAll(), file);
+        bool isSave = bJsonServices.Ser(evenServices.ItemButtonAll(), file);
         if (!isSave)
             throw new NullReferenceException();
         return isSave;
@@ -74,7 +75,7 @@ public class WorkWithServices(
 
     public MemoryButton GetSaveButton(string file)
     {
-        MemoryButton? memoryButton = BjsonServices.Des(file);
+        MemoryButton? memoryButton = bJsonServices.Des(file);
         if (memoryButton == null)
             throw new NullReferenceException();
         return memoryButton;

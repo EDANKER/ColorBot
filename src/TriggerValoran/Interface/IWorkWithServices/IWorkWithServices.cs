@@ -1,15 +1,15 @@
 ﻿using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.TriggerSettings;
 
-namespace TriggerValoran.Interfase.IWorkWithServices;
+namespace TriggerValoran.Interface.IWorkWithServices;
 
 public interface IWorkWithServices
 {
     bool Start(TriggerSettings triggerSettings);
-    bool SitDown();
-    bool WalkStop();
-    bool Fire(int count, int sleepRepeatFire, int sleepOneFire);
-    bool ClickForStart();
+    bool SitDown(TriggerSettings triggerSettings);
+    bool WalkStop(TriggerSettings triggerSettings);
+    bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire);
+    bool ClickForStart(TriggerSettings triggerSettings);
     bool SaveSettings(List<TriggerSettings> item, string file);
     bool SaveButton(string file);
     TriggerSettings GetSaveSettings(string file);

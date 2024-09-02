@@ -1,11 +1,11 @@
 ﻿using System.Windows.Threading;
 using TriggerValoran.Model.TriggerSettings;
 
-namespace TriggerValoran.Interfase.ITriggerServices;
+namespace TriggerValoran.Interface.ITriggerServices;
 
 public interface ITriggerServices
 {
-    bool Trigger(TriggerSettings triggerSettings, DispatcherTimer dispatcherTimer);
-    bool Save(TriggerSettings triggerSettings);
+    bool Trigger(DispatcherTimer dispatcherTimer);
+    bool Save();
     TriggerSettings GetSave();
 }

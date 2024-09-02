@@ -1,4 +1,4 @@
-﻿namespace TriggerValoran.Interfase.ISleepServices;
+﻿namespace TriggerValoran.Interface.ISleepServices;
 
 public interface ISleepServices
 {

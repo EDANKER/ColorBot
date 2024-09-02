@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using TriggerValoran.Interfase.IColorServices;
+using TriggerValoran.Interface.IColorServices;
 
 namespace TriggerValoran.Service.ColorServices;
 

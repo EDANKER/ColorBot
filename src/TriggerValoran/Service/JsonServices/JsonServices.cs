@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-using TriggerValoran.Interfase.IJsonServices;
+using TriggerValoran.Interface.IJsonServices;
 
 namespace TriggerValoran.Service.JsonServices;
 

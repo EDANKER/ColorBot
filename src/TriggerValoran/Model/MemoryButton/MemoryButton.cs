@@ -1,7 +1,7 @@
 ﻿namespace TriggerValoran.Model.MemoryButton;
 
-public class MemoryButton(byte name, byte button)
+public class MemoryButton(string name, byte button)
 {
-    public byte Name { get; set; } = name;
+    public string Name { get; set; } = name;
     public byte Button { get; set; } = button;
 }

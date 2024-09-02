@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
-using TriggerValoran.Model.TriggerSettings;
 
-namespace TriggerValoran.Interfase.IColorServices;
+namespace TriggerValoran.Interface.IColorServices;
 
 public interface IColorServices
 {

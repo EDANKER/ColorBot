@@ -1,31 +1,31 @@
 ﻿using System.Windows.Threading;
-using TriggerValoran.Interfase.ITriggerServices;
-using TriggerValoran.Interfase.IWorkWithServices;
+using TriggerValoran.Interface.ITriggerServices;
+using TriggerValoran.Interface.IWorkWithServices;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.TriggerServices;
 
-public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServices
+public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings triggerSettings) : ITriggerServices
 {
-    public bool Trigger(TriggerSettings triggerSettings, DispatcherTimer dispatcherTimer)
+    public bool Trigger(DispatcherTimer dispatcherTimer)
     {
         workWithServices.SaveButton("dataButton.json");
         
-        while (workWithServices.ClickForStart())
+        while (workWithServices.ClickForStart(triggerSettings))
         {
             if (dispatcherTimer.IsEnabled)
                 dispatcherTimer.Stop();
             if (workWithServices.Start(triggerSettings))
             {
                 if (triggerSettings.WalkStop && triggerSettings.SitDown &&
-                    workWithServices.WalkStop() && workWithServices.SitDown())
-                    workWithServices.Fire(triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                if (triggerSettings.SitDown && workWithServices.SitDown())
-                    workWithServices.Fire(triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                if (triggerSettings.WalkStop && workWithServices.WalkStop())
-                    workWithServices.Fire(triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                    workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
                 else
-                    workWithServices.Fire(triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
             }
         }
 
@@ -33,7 +33,7 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
         return false;
     }
 
-    public bool Save(TriggerSettings triggerSettings)
+    public bool Save()
     {
         return workWithServices.SaveSettings(new List<TriggerSettings>(), "dataTrigger.json");
     }

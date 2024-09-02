@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows;
-using TriggerValoran.Interfase.IScreenServices;
+using TriggerValoran.Interface.IScreenServices;
 using Point = System.Drawing.Point;
 
 namespace TriggerValoran.Service.ScreenServices;

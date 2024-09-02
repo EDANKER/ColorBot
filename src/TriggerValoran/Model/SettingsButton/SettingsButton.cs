@@ -2,7 +2,7 @@
 
 public class SettingsButton
 {
-    public int Start { get; set; }
+    public byte Start { get; set; }
     public byte Fire { get; set; }
     public byte SitDown { get; set; }
 

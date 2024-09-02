@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
-using TriggerValoran.Interfase.IColorServices;
-using TriggerValoran.Interfase.IEvenClickServices;
-using TriggerValoran.Interfase.IJsonServices;
-using TriggerValoran.Interfase.IMemoryButtonServices;
-using TriggerValoran.Interfase.IScreenServices;
-using TriggerValoran.Interfase.ISleepServices;
-using TriggerValoran.Interfase.ITriggerServices;
+using TriggerValoran.Interface.IColorServices;
+using TriggerValoran.Interface.IEvenClickServices;
+using TriggerValoran.Interface.IJsonServices;
+using TriggerValoran.Interface.IMemoryButtonServices;
+using TriggerValoran.Interface.IScreenServices;
+using TriggerValoran.Interface.ITriggerServices;
 using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.SettingsButton;
 using TriggerValoran.Model.TriggerSettings;
@@ -29,8 +28,8 @@ public partial class MainWindow : Window
     private IEvenServices _evenServices;
     private IScreenServices _screenServices;
     private readonly DispatcherTimer _dispatcherTimer;
-    private IJsonServices<TriggerSettings> _TjsonServices;
-    private IJsonServices<MemoryButton> _BjsonServices;
+    private IJsonServices<TriggerSettings> _tJsonServices;
+    private IJsonServices<MemoryButton> _bJsonServices;
 
     private int _boxY;
     private int _boxX;
@@ -61,15 +60,17 @@ public partial class MainWindow : Window
             _colorServices = new ColorServices();
             _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();
-            _TjsonServices = new JsonServices<TriggerSettings>();
-            _BjsonServices = new JsonServices<MemoryButton>();
+            _tJsonServices = new JsonServices<TriggerSettings>();
+            _bJsonServices = new JsonServices<MemoryButton>();
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                    _TjsonServices, _BjsonServices));
+                    _tJsonServices, _bJsonServices), new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime,_boxColor, _isSitDown, _isWalkStop, new SettingsButton
+                {
+                    Start = 0x32
+                }));
         }
 
         _triggerServices.Trigger(
-            new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime,_boxColor, _isSitDown, _isWalkStop, new SettingsButton()),
             _dispatcherTimer);
     }
 
@@ -173,8 +174,7 @@ public partial class MainWindow : Window
 
     private void Save(object sender, RoutedEventArgs e)
     {
-        _triggerServices.Save(new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
-            _isSitDown, _isWalkStop, new SettingsButton()));
+        _triggerServices.Save();
     }
 
     private void Get(object sender, RoutedEventArgs e)

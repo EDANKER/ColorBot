@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TriggerValoran.Interfase.IScreenServices;
+namespace TriggerValoran.Interface.IScreenServices;
 
 public interface IScreenServices
 {
