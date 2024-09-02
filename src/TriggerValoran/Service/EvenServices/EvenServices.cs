@@ -8,19 +8,19 @@ public class EvenServices(IButtonServices buttonServices) : IEvenServices
 {
     public bool Fire(int count, byte memoryButton, int sleepRepeatFire, int sleepOneFire, byte up, byte down)
     {
-        return buttonServices.ItemButtonClick(memoryButton, 1, 1, up, down);
+        return buttonServices.ItemButtonClickUpDownFire(memoryButton, count, up, down, sleepRepeatFire, sleepOneFire);
     }
 
     public bool WalkStop(int count, List<byte> memoryButton, int sleep, byte up, byte down)
     {
         for (int i = 0; i < memoryButton.Count; i++)
-            buttonServices.ItemButtonClick(memoryButton[i], 0, count, up, down);
+            buttonServices.ItemButtonClickUp(memoryButton[i], count, up, down);
         return true;
     }
 
     public bool SitDown(int count, byte memoryButton, int sleep, byte up, byte down)
     {
-        return buttonServices.ItemButtonClick(memoryButton, 1, count, up, down);
+        return buttonServices.ItemButtonClickUpDownSitDown(memoryButton, count, up, down, sleep);
     }
 
     public bool ClickForStart(byte memoryButton)

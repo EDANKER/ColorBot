@@ -5,6 +5,7 @@ using TriggerValoran.Interface.IEvenClickServices;
 using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
+using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Interface.ITriggerServices;
 using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.SettingsButton;
@@ -14,6 +15,7 @@ using TriggerValoran.Service.ColorServices;
 using TriggerValoran.Service.EvenServices;
 using TriggerValoran.Service.JsonServices;
 using TriggerValoran.Service.ScreenServices;
+using TriggerValoran.Service.SleepServices;
 using TriggerValoran.Service.TriggerServices;
 using TriggerValoran.Service.WorkWithServices;
 using Brushes = System.Windows.Media.Brushes;
@@ -30,6 +32,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _dispatcherTimer;
     private IJsonServices<TriggerSettings> _tJsonServices;
     private IJsonServices<MemoryButton> _bJsonServices;
+    private ISleepServices _sleepServices;
 
     private int _boxY;
     private int _boxX;
@@ -56,7 +59,8 @@ public partial class MainWindow : Window
     {
         if (_triggerServices == null)
         {
-            _buttonServices = new ButtonServices();
+            _sleepServices = new SleepServices();
+            _buttonServices = new ButtonServices(_sleepServices);
             _colorServices = new ColorServices();
             _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();

@@ -1,29 +1,66 @@
 ﻿using TriggerValoran.Interface.IMemoryButtonServices;
+using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Model.MemoryButton;
-using TriggerValoran.Model.SettingsButton;
 
 namespace TriggerValoran.Service.ButtonServices;
 
-public class ButtonServices() : IButtonServices
+public class ButtonServices(ISleepServices sleepServices) : IButtonServices
 {
-    private static byte Start { get; set; }
-    
-    public bool ItemButtonClick(byte memoryButton, int state, int count, byte up, byte down)
+
+    private void UseDll(byte memoryButton, int count, byte up, byte down, int state)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (state == 1)
+            {
+                DllServices.DllServices.keybd_event(memoryButton, 0, down, IntPtr.Zero);
+                DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
+            }
+            else
+            {
+                DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
+            }
+        }
+    }
+
+    public bool ItemButtonClickUpDownFire(byte memoryButton, int count, byte up, byte down, int sleepRepeatFire,
+        int sleepOneFire)
     {
         try
         {
-            for (int i = 0; i < count; i++)
-            {
-                if (state == 1)
-                {
-                    DllServices.DllServices.keybd_event(memoryButton, 0, down, IntPtr.Zero);
-                    DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
-                }
-                else
-                {
-                    DllServices.DllServices.keybd_event(memoryButton, 0, up, IntPtr.Zero);
-                }
-            }
+            sleepServices.Sleep(sleepOneFire);
+            UseDll(memoryButton, count, up, down, 1);
+            sleepServices.Sleep(sleepRepeatFire);
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+
+    public bool ItemButtonClickUp(byte memoryButton, int count, byte up, byte down)
+    {
+        try
+        {
+            UseDll(memoryButton, count, up, down, 2);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+
+    public bool ItemButtonClickUpDownSitDown(byte memoryButton, int count, byte up, byte down, int sleep)
+    {
+        try
+        {
+            sleepServices.Sleep(sleep);
+            UseDll(memoryButton, count, up, down, 1);
             return true;
         }
         catch (Exception e)
@@ -37,7 +74,7 @@ public class ButtonServices() : IButtonServices
     {
         try
         {
-            return DllServices.DllServices.GetKeyState(Start) > 2;
+            return DllServices.DllServices.GetKeyState(memoryButton) > 2;
         }
         catch (Exception e)
         {
