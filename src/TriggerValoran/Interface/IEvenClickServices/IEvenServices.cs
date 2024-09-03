@@ -8,5 +8,5 @@ public interface IEvenServices
     bool WalkStop(int count, List<byte> memoryButtons, byte up, byte down);
     bool SitDown(int count, byte memoryButton, int sleep, byte up, byte down);
     bool ClickForStart(byte memoryButton);
-    List<MemoryButton> ItemButtonAll();
+    Dictionary<string, byte> ItemButtonAll();
 }

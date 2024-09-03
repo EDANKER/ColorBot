@@ -7,7 +7,6 @@ using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Interface.ITriggerServices;
-using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.SettingsButton;
 using TriggerValoran.Model.TriggerSettings;
 using TriggerValoran.Service.ButtonServices;
@@ -31,7 +30,7 @@ public partial class MainWindow : Window
     private IScreenServices _screenServices;
     private readonly DispatcherTimer _dispatcherTimer;
     private IJsonServices<TriggerSettings> _tJsonServices;
-    private IJsonServices<List<MemoryButton>> _bJsonServices;
+    private IJsonServices<Dictionary<string, byte>> _bJsonServices;
     private ISleepServices _sleepServices;
 
     private int _boxY;
@@ -69,7 +68,7 @@ public partial class MainWindow : Window
             _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
-            _bJsonServices = new JsonServices<List<MemoryButton>>();
+            _bJsonServices = new JsonServices<Dictionary<string, byte>>();
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
                         _tJsonServices, _bJsonServices),

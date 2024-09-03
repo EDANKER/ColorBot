@@ -28,7 +28,7 @@ public class EvenServices(IButtonServices buttonServices) : IEvenServices
         return buttonServices.ItemButtonState(memoryButton);
     }
 
-    public List<MemoryButton> ItemButtonAll()
+    public Dictionary<string, byte> ItemButtonAll()
     {
         return buttonServices.ItemButtonAll();
     }

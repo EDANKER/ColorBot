@@ -83,11 +83,11 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
         }
     }
 
-    public List<MemoryButton> ItemButtonAll()
+    public Dictionary<string, byte> ItemButtonAll()
     {
         MemoryButton memoryButton = new MemoryButton("Ctrl", 0x22);
-        List<MemoryButton> list = new List<MemoryButton>();
-        list.Add(memoryButton);
-        return list;
+        Dictionary<string, byte> dictionary = new Dictionary<string, byte>();
+        dictionary.Add(memoryButton.Name, memoryButton.Button);
+        return dictionary;
     }
 }

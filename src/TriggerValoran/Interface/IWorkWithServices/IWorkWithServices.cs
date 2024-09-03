@@ -13,5 +13,5 @@ public interface IWorkWithServices
     bool SaveSettings(TriggerSettings item, string file);
     bool SaveButton(string file);
     TriggerSettings GetSaveSettings(string file);
-    List<MemoryButton> GetSaveButton(string file);
+    Dictionary<string, byte> GetSaveButton(string file);
 }

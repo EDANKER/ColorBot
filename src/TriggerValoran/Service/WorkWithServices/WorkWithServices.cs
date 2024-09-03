@@ -4,7 +4,6 @@ using TriggerValoran.Interface.IEvenClickServices;
 using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.IWorkWithServices;
-using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.WorkWithServices;
@@ -14,9 +13,15 @@ public class WorkWithServices(
     IEvenServices evenServices,
     IScreenServices screenServices,
     IJsonServices<TriggerSettings> tJsonServices,
-    IJsonServices<List<MemoryButton>> bJsonServices) : IWorkWithServices
+    IJsonServices<Dictionary<string, byte>> bJsonServices) : IWorkWithServices
 {
     private readonly string _file = "dataButton.json";
+
+    private byte ByteButton(string button)
+    {
+        GetSaveButton(_file).TryGetValue(button, out byte value);
+        return value;
+    }
 
     public bool Start(TriggerSettings triggerSettings)
     {
@@ -29,7 +34,7 @@ public class WorkWithServices(
 
     public bool SitDown(TriggerSettings triggerSettings)
     {
-        return evenServices.SitDown(1, GetSaveButton(_file)[0].Button, 50,
+        return evenServices.SitDown(1, ByteButton(triggerSettings.SettingsButton.SitDown), 50,
             0x21, 0x22);
     }
 
@@ -37,14 +42,14 @@ public class WorkWithServices(
     {
         List<byte> bytesButton = new List<byte>();
         for (int i = 2; i < GetSaveButton(_file).Count; i++)
-            bytesButton.Add(GetSaveButton(_file)[i].Button);
+            bytesButton.Add(ByteButton(triggerSettings.SettingsButton.Move[i]));
         return evenServices.WalkStop(1, bytesButton, 0x22,
             0x21);
     }
 
     public bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire)
     {
-        return evenServices.Fire(1, GetSaveButton(_file)[1].Button, sleepRepeatFire, sleepOneFire,
+        return evenServices.Fire(1, ByteButton(triggerSettings.SettingsButton.Fire), sleepRepeatFire, sleepOneFire,
             0x21, 0x22);
     }
 
@@ -77,9 +82,9 @@ public class WorkWithServices(
         return isSave;
     }
 
-    public List<MemoryButton> GetSaveButton(string file)
+    public Dictionary<string, byte> GetSaveButton(string file)
     {
-        List<MemoryButton>? memoryButton = bJsonServices.Des(file);
+        Dictionary<string, byte>? memoryButton = bJsonServices.Des(file);
         if (memoryButton == null)
             throw new NullReferenceException();
         return memoryButton;

@@ -10,5 +10,5 @@ public interface IButtonServices
     bool ItemButtonClickUp(byte memoryButton, int count, byte up, byte down);
     bool ItemButtonClickUpDownSitDown(byte memoryButton, int count, byte up, byte down, int sleep);
     bool ItemButtonState(byte memoryButton);
-    List<MemoryButton> ItemButtonAll();
+    Dictionary<string, byte> ItemButtonAll();
 }
