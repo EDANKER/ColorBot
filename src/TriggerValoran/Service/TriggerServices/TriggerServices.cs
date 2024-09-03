@@ -10,7 +10,6 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
     public bool Trigger(DispatcherTimer dispatcherTimer)
     {
         workWithServices.SaveButton("dataButton.json");
-        
         while (workWithServices.ClickForStart(triggerSettings))
         {
             if (dispatcherTimer.IsEnabled)
@@ -28,14 +27,13 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
                     workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
             }
         }
-
         dispatcherTimer.Start();
         return false;
     }
 
     public bool Save()
     {
-        return workWithServices.SaveSettings(new List<TriggerSettings>(), "dataTrigger.json");
+        return workWithServices.SaveSettings(triggerSettings, "dataTrigger.json");
     }
 
     public TriggerSettings GetSave()

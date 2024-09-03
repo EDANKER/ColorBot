@@ -11,7 +11,7 @@ public class EvenServices(IButtonServices buttonServices) : IEvenServices
         return buttonServices.ItemButtonClickUpDownFire(memoryButton, count, up, down, sleepRepeatFire, sleepOneFire);
     }
 
-    public bool WalkStop(int count, List<byte> memoryButton, int sleep, byte up, byte down)
+    public bool WalkStop(int count, List<byte> memoryButton, byte up, byte down)
     {
         for (int i = 0; i < memoryButton.Count; i++)
             buttonServices.ItemButtonClickUp(memoryButton[i], count, up, down);

@@ -1,12 +1,10 @@
 ﻿namespace TriggerValoran.Model.SettingsButton;
 
-public class SettingsButton
+public class SettingsButton(string start, string fire, string sitDown, List<string> move)
 {
-    public byte Start { get; set; }
-    public byte Fire { get; set; }
-    public byte SitDown { get; set; }
+    public string Start { get; set; } = start;
+    public string Fire { get; set; } = fire;
+    public string SitDown { get; set; } = sitDown;
 
-    public List<byte> Move { get; set; }
-    public byte KeyUp { get; set; }
-    public byte KeyDown { get; set; }
+    public List<string> Move { get; set; } = move;
 }

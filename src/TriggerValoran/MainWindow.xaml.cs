@@ -31,7 +31,7 @@ public partial class MainWindow : Window
     private IScreenServices _screenServices;
     private readonly DispatcherTimer _dispatcherTimer;
     private IJsonServices<TriggerSettings> _tJsonServices;
-    private IJsonServices<MemoryButton> _bJsonServices;
+    private IJsonServices<List<MemoryButton>> _bJsonServices;
     private ISleepServices _sleepServices;
 
     private int _boxY;
@@ -42,6 +42,10 @@ public partial class MainWindow : Window
     private int _countFire = 2;
     private bool _isSitDown;
     private bool _isWalkStop;
+    private string _start;
+    private string _sitdown;
+    private string _fire;
+    private List<string> _move;
 
     public MainWindow()
     {
@@ -65,13 +69,13 @@ public partial class MainWindow : Window
             _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
-            _bJsonServices = new JsonServices<MemoryButton>();
+            _bJsonServices = new JsonServices<List<MemoryButton>>();
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                    _tJsonServices, _bJsonServices), new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime,_boxColor, _isSitDown, _isWalkStop, new SettingsButton
-                {
-                    Start = 0x32
-                }));
+                        _tJsonServices, _bJsonServices),
+                    new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
+                        _isSitDown,
+                        _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
         }
 
         _triggerServices.Trigger(
@@ -101,7 +105,7 @@ public partial class MainWindow : Window
         TextSleepFire.Text = $"Повторный выстрел время {e.NewValue.ToString("0")} секунд";
         _sleepOneTime = (int)e.NewValue;
     }
-    
+
     private void SitDown(object sender, RoutedEventArgs e)
     {
         _isSitDown = !_isSitDown;
