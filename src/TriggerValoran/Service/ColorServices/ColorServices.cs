@@ -1,32 +1,12 @@
 ﻿using System.Drawing;
 using TriggerValoran.Interface.IColorServices;
+using TriggerValoran.Model.Color.RedColor;
+using TriggerValoran.Model.Color.YellowColor;
 
 namespace TriggerValoran.Service.ColorServices;
 
-public class ColorServices : IColorServices
+public class ColorServices(Model.Color.Color purpleColor, YellowColor yellowColor, RedColor redColor) : IColorServices
 {
-    private bool Red(Color color)
-    {
-        int diffRedG = Math.Abs(color.R - color.G);
-        int diffRedB = Math.Abs(color.R - color.B);
-
-        return (color.R >= 200) && (color.G <= 50) && (color.B <= 50) && (diffRedG >= 100) && (diffRedB >= 100);
-    }
-
-    private bool Purple(Color color)
-    {
-        int diff = Math.Abs(color.R - color.B);
-
-        return (color.B >= 128) && (color.G <= 100) && (diff <= 50);
-    }
-
-    private bool Yellow(Color color)
-    {
-        int diff = Math.Abs(color.R - color.G);
-
-        return (color.R >= 128) && (color.G >= 128) && (color.B <= 100) && (diff <= 50);
-    }
-
     public bool ItemColor(Bitmap? bitmap, int boxSizeX, int boxSizeY, string boxColor)
     {
         try
@@ -43,19 +23,19 @@ public class ColorServices : IColorServices
                     {
                         Color color = bitmap.GetPixel(i, j);
 
-                        if (Red(color) && boxColor == "Red")
+                        if (purpleColor.CreateColor(color) && boxColor == "Red")
                         {
                             foundColor = true;
                             break;
                         }
 
-                        if (Yellow(color) && boxColor == "Yellow")
+                        if (yellowColor.CreateColor(color) && boxColor == "Yellow")
                         {
                             foundColor = true;
                             break;
                         }
 
-                        if (Purple(color) && boxColor == "Purple")
+                        if (redColor.CreateColor(color) && boxColor == "Purple")
                         {
                             foundColor = true;
                             break;

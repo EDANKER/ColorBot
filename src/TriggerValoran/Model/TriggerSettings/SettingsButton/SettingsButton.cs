@@ -1,4 +1,4 @@
-﻿namespace TriggerValoran.Model.SettingsButton;
+﻿namespace TriggerValoran.Model.TriggerSettings.SettingsButton;
 
 public class SettingsButton(string start, string fire, string sitDown, List<string> move)
 {

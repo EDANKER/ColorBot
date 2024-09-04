@@ -10,9 +10,13 @@ using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Interface.ITriggerServices;
+using TriggerValoran.Model.Color;
+using TriggerValoran.Model.Color.PurpleColor;
+using TriggerValoran.Model.Color.RedColor;
+using TriggerValoran.Model.Color.YellowColor;
 using TriggerValoran.Model.DataStateUser;
-using TriggerValoran.Model.SettingsButton;
 using TriggerValoran.Model.TriggerSettings;
+using TriggerValoran.Model.TriggerSettings.SettingsButton;
 using TriggerValoran.Service.ButtonServices;
 using TriggerValoran.Service.ColorServices;
 using TriggerValoran.Service.EvenServices;
@@ -44,6 +48,9 @@ public partial class MainWindow : Window
     private HttpClient _httpClient;
     private HttpRequestMessage _httpRequestMessage;
     private HttpResponseMessage _httpResponseMessage;
+    private Color _purpleColor;
+    private RedColor _redColor;
+    private YellowColor _yellowColor;
 
     private int _boxY;
     private int _boxX;
@@ -64,6 +71,9 @@ public partial class MainWindow : Window
         InitializeComponent();
         if (_triggerServices == null)
         {
+            _yellowColor = new YellowColor();
+            _redColor = new RedColor();
+            _purpleColor = new PurpleColor();
             _httpClient = new HttpClient();
             _httpRequestMessage = new HttpRequestMessage();
             _httpResponseMessage = new HttpResponseMessage();
@@ -72,7 +82,7 @@ public partial class MainWindow : Window
             _httpServices = new HttpServices(_httpServicesRequest);
             _sleepServices = new SleepServices();
             _buttonServices = new ButtonServices(_sleepServices);
-            _colorServices = new ColorServices();
+            _colorServices = new ColorServices(_purpleColor, _yellowColor, _redColor);
             _evenServices = new EvenServices(_buttonServices);
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
