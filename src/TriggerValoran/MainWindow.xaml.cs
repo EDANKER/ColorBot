@@ -7,6 +7,7 @@ using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Interface.ITriggerServices;
+using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.SettingsButton;
 using TriggerValoran.Model.TriggerSettings;
 using TriggerValoran.Service.ButtonServices;
@@ -45,21 +46,11 @@ public partial class MainWindow : Window
     private string _sitdown;
     private string _fire;
     private List<string> _move;
+    private DataStateUser _dataStateUser;
 
     public MainWindow()
     {
         InitializeComponent();
-
-        _dispatcherTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(0)
-        };
-        _dispatcherTimer.Start();
-        _dispatcherTimer.Tick += TimerTick;
-    }
-
-    private void TimerTick(object? sender, EventArgs e)
-    {
         if (_triggerServices == null)
         {
             _sleepServices = new SleepServices();
@@ -77,8 +68,12 @@ public partial class MainWindow : Window
                         _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
         }
 
-        _triggerServices.Trigger(
-            _dispatcherTimer);
+        Task.WhenAny(Start());
+    }
+
+    private async Task Start()
+    {
+        _dataStateUser = await _triggerServices.Trigger();
     }
 
     private void BoxX(object sender, RoutedPropertyChangedEventArgs<double> e)

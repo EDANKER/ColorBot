@@ -4,6 +4,7 @@ using TriggerValoran.Interface.IEvenClickServices;
 using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.IWorkWithServices;
+using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.WorkWithServices;
@@ -88,5 +89,10 @@ public class WorkWithServices(
         if (memoryButton == null)
             throw new NullReferenceException();
         return memoryButton;
+    }
+
+    public DataStateUser GetState(string path, int idUser)
+    {
+        throw new NotImplementedException();
     }
 }

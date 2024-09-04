@@ -1,11 +1,12 @@
 ﻿using System.Windows.Threading;
+using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Interface.ITriggerServices;
 
 public interface ITriggerServices
 {
-    bool Trigger(DispatcherTimer dispatcherTimer);
+    Task<DataStateUser> Trigger();
     bool Save();
     TriggerSettings GetSave();
 }
