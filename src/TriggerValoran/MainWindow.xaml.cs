@@ -85,12 +85,12 @@ public partial class MainWindow : Window
                         _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
         }
 
-        Task.WhenAny(Start());
+        Task.Run(Start);
     }
 
-    private async Task Start()
+    private void Start()
     {
-        _dataStateUser = await _triggerServices.Trigger();
+        _triggerServices.Trigger();
     }
 
     private void BoxX(object sender, RoutedPropertyChangedEventArgs<double> e)

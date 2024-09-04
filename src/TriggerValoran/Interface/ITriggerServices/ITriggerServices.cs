@@ -6,7 +6,7 @@ namespace TriggerValoran.Interface.ITriggerServices;
 
 public interface ITriggerServices
 {
-    Task<DataStateUser?> Trigger();
+    DataStateUser? Trigger();
     bool Save();
     TriggerSettings GetSave();
 }
