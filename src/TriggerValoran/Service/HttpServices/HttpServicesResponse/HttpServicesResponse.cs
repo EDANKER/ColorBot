@@ -1,6 +1,11 @@
-﻿namespace TriggerValoran.Service.HttpServices.HttpServicesResponse;
+﻿using TriggerValoran.Interface.IHttpServicesResponse;
 
-public class HttpServicesResponse
+namespace TriggerValoran.Service.HttpServices.HttpServicesResponse;
+
+public class HttpServicesResponse : IHttpServicesResponse
 {
-    
+    public bool PostState(string path, string point)
+    {
+        throw new NotImplementedException();
+    }
 }
