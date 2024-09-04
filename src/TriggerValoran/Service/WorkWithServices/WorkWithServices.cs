@@ -97,7 +97,8 @@ public class WorkWithServices(
     public DataStateUser? GetState(string path, int idUser)
     {
         string? json = httpServices.Get(path, idUser);
-        if (json != null) return gJsonServices.DesInNetwork(json) ?? throw new NullReferenceException();
+        if (json != null)
+            return gJsonServices.DesInNetwork(json);
         return null;
     }
 }

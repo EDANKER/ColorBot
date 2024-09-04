@@ -7,34 +7,28 @@ namespace TriggerValoran.Service.TriggerServices;
 
 public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings triggerSettings) : ITriggerServices
 {
-    public DataStateUser? Trigger()
+    public void Trigger()
     {
-        DataStateUser? dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
-        if (dataStateUser != null && dataStateUser.Time > 0)
+        workWithServices.SaveButton("dataButton.json");
+        while (GetState().Time > 0)
         {
-            workWithServices.SaveButton("dataButton.json");
-            while (true)
+            if (workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
             {
-                if (workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
-                {
-                    if (triggerSettings.WalkStop && triggerSettings.SitDown &&
-                        workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
-                        workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                            triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                    if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
-                        workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                            triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                    if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
-                        workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                            triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                    else
-                        workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                            triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                }
+                if (triggerSettings.WalkStop && triggerSettings.SitDown &&
+                    workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+                else
+                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
             }
         }
-
-        return dataStateUser;
     }
 
     public bool Save()
@@ -45,5 +39,12 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
     public TriggerSettings GetSave()
     {
         return workWithServices.GetSaveSettings("dataTrigger.json");
+    }
+
+    public DataStateUser GetState()
+    {
+        DataStateUser? dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
+        if (dataStateUser != null) return dataStateUser;
+        throw new NullReferenceException();
     }
 }
