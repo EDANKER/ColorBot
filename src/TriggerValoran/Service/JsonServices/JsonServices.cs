@@ -20,6 +20,19 @@ public class JsonServices<T> : IJsonServices<T>
         }
     }
 
+    public T? DesInNetwork(string json)
+    {
+        try
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return default;
+        }
+    }
+
     public bool Ser(T item, string file)
     {
         try

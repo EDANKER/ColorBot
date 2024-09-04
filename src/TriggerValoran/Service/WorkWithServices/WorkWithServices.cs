@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using TriggerValoran.Interface.IColorServices;
 using TriggerValoran.Interface.IEvenClickServices;
+using TriggerValoran.Interface.IHttpServices;
 using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.IWorkWithServices;
@@ -14,7 +15,9 @@ public class WorkWithServices(
     IEvenServices evenServices,
     IScreenServices screenServices,
     IJsonServices<TriggerSettings> tJsonServices,
-    IJsonServices<Dictionary<string, byte>> bJsonServices) : IWorkWithServices
+    IJsonServices<Dictionary<string, byte>> bJsonServices,
+    IJsonServices<DataStateUser?> gJsonServices,
+    IHttpServices httpServices) : IWorkWithServices
 {
     private readonly string _file = "dataButton.json";
 
@@ -91,8 +94,10 @@ public class WorkWithServices(
         return memoryButton;
     }
 
-    public DataStateUser GetState(string path, int idUser)
+    public DataStateUser? GetState(string path, int idUser)
     {
-        throw new NotImplementedException();
+        string? json = httpServices.Get(path, idUser);
+        if (json != null) return gJsonServices.DesInNetwork(json) ?? throw new NullReferenceException();
+        return null;
     }
 }

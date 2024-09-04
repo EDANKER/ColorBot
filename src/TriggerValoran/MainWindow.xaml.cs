@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.Net.Http;
+using System.Windows;
 using System.Windows.Threading;
 using TriggerValoran.Interface.IColorServices;
 using TriggerValoran.Interface.IEvenClickServices;
+using TriggerValoran.Interface.IHttpServices;
+using TriggerValoran.Interface.IHttpServicesRequest;
 using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
@@ -13,6 +16,8 @@ using TriggerValoran.Model.TriggerSettings;
 using TriggerValoran.Service.ButtonServices;
 using TriggerValoran.Service.ColorServices;
 using TriggerValoran.Service.EvenServices;
+using TriggerValoran.Service.HttpServices;
+using TriggerValoran.Service.HttpServices.HttpServicesRequest;
 using TriggerValoran.Service.JsonServices;
 using TriggerValoran.Service.ScreenServices;
 using TriggerValoran.Service.SleepServices;
@@ -32,7 +37,13 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _dispatcherTimer;
     private IJsonServices<TriggerSettings> _tJsonServices;
     private IJsonServices<Dictionary<string, byte>> _bJsonServices;
+    private IJsonServices<DataStateUser?> _gJsonServices;
     private ISleepServices _sleepServices;
+    private IHttpServices _httpServices;
+    private IHttpServicesRequest _httpServicesRequest;
+    private HttpClient _httpClient;
+    private HttpRequestMessage _httpRequestMessage;
+    private HttpResponseMessage _httpResponseMessage;
 
     private int _boxY;
     private int _boxX;
@@ -46,13 +57,19 @@ public partial class MainWindow : Window
     private string _sitdown;
     private string _fire;
     private List<string> _move;
-    private DataStateUser _dataStateUser;
+    private DataStateUser? _dataStateUser;
 
     public MainWindow()
     {
         InitializeComponent();
         if (_triggerServices == null)
         {
+            _httpClient = new HttpClient();
+            _httpRequestMessage = new HttpRequestMessage();
+            _httpResponseMessage = new HttpResponseMessage();
+            _gJsonServices = new JsonServices<DataStateUser?>();
+            _httpServicesRequest = new HttpServicesRequest(_httpClient, _httpRequestMessage, _httpResponseMessage);
+            _httpServices = new HttpServices(_httpServicesRequest);
             _sleepServices = new SleepServices();
             _buttonServices = new ButtonServices(_sleepServices);
             _colorServices = new ColorServices();
@@ -62,7 +79,7 @@ public partial class MainWindow : Window
             _bJsonServices = new JsonServices<Dictionary<string, byte>>();
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                        _tJsonServices, _bJsonServices),
+                        _tJsonServices, _bJsonServices, _gJsonServices, _httpServices),
                     new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
                         _isSitDown,
                         _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));

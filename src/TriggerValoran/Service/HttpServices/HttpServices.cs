@@ -1,12 +1,13 @@
 ﻿using TriggerValoran.Interface.IHttpServices;
+using TriggerValoran.Interface.IHttpServicesRequest;
 using TriggerValoran.Model.DataStateUser;
 
 namespace TriggerValoran.Service.HttpServices;
 
-public class HttpServices : IHttpServices
+public class HttpServices(IHttpServicesRequest httpServicesRequest) : IHttpServices
 {
-    public DataStateUser Get(string path, int idUser)
+    public string? Get(string path, int idUser)
     {
-        throw new NotImplementedException();
+        return httpServicesRequest.GetState(path, "/user", idUser);
     }
 }

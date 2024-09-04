@@ -7,12 +7,12 @@ namespace TriggerValoran.Service.TriggerServices;
 
 public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings triggerSettings) : ITriggerServices
 {
-    public async Task<DataStateUser> Trigger()
+    public async Task<DataStateUser?> Trigger()
     {
         return await Task.Run((() =>
         {
-            DataStateUser dataStateUser = workWithServices.GetState("", 1);
-            if (dataStateUser.Time > 0)
+            DataStateUser? dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
+            if (dataStateUser != null && dataStateUser.Time > 0)
             {
                 workWithServices.SaveButton("dataButton.json");
                 while (true)

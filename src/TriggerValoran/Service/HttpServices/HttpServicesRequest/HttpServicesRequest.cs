@@ -1,12 +1,31 @@
-﻿using TriggerValoran.Interface.IHttpServicesRequest;
+﻿using System.Net;
+using System.Net.Http;
+using TriggerValoran.Interface.IHttpServicesRequest;
 using TriggerValoran.Model.DataStateUser;
 
 namespace TriggerValoran.Service.HttpServices.HttpServicesRequest;
 
-public class HttpServicesRequest : IHttpServicesRequest
+public class HttpServicesRequest(
+    HttpClient httpClient,
+    HttpRequestMessage httpRequestMessage,
+    HttpResponseMessage httpResponseMessage)
+    : IHttpServicesRequest
 {
-    public DataStateUser GetState(string path, string point, int idUser)
+    public string? GetState(string path, string point, int idUser)
     {
-        throw new NotImplementedException();
+        try
+        {
+            httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, path + point);
+            httpClient.Send(httpRequestMessage);
+
+            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                return httpResponseMessage.Content.ReadAsStringAsync().Result;
+            return null;
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
     }
 }
