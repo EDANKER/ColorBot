@@ -32,12 +32,12 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
 
     public bool Save()
     {
-        return workWithServices.SaveSettings(triggerSettings, @"C:\Users\Rider666\Downloads\dataTrigger.json");
+        return workWithServices.SaveSettings(triggerSettings, "dataTrigger.json");
     }
 
     public TriggerSettings GetSave()
     {
-        return workWithServices.GetSaveSettings(@"C:\Users\Rider666\Downloads\dataTrigger.json");
+        return workWithServices.GetSaveSettings("dataTrigger.json");
     }
 
     public DataStateUser GetState()
