@@ -229,6 +229,7 @@ public partial class MainWindow : Window
         IsWalkStop.IsChecked = _isWalkStop;
         SliderTimeFire.Value = _sleepOneTime;
         GetColor();
+        Update();
     }
 
     private void GetColor()
