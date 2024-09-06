@@ -31,17 +31,17 @@
                     <Button Click="ColorYellow" Content="Желтый"></Button>
                 </ListBox>
             </Popup>
-            <Button x:Name="NameItemCountFire" Click="OpenCountFire" Content="2"></Button>
+            <Button x:Name="NameItemCountFire" Click="OpenCountFire" Content="2 выстрела"></Button>
             <Popup Placement="Center" StaysOpen="False" x:Name="CountFire">
                 <ListBox>
-                    <Button Click="Count1" Content="1"></Button>
-                    <Button Click="Count2" Content="2"></Button>
-                    <Button Click="Count3" Content="3"></Button>
+                    <Button Click="Count1" Content="1 выстрел"></Button>
+                    <Button Click="Count2" Content="2 выстрела"></Button>
+                    <Button Click="Count3" Content="3 выстрела"></Button>
                 </ListBox>
             </Popup>
-            <Button Content="Shift"></Button>
-            <Button Content="Cntrl"></Button>
-            <Button Content="V"></Button>
+            <Button Click="ActiveTrigger" Content="Shift"></Button>
+            <Button Click="SitDownTrigger" Content="Ctrl"></Button>
+            <Button Click="FireTrigger" Content="V"></Button>
         </StackPanel>
         <StackPanel Width="300" Background="#212121" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">
             <StackPanel>
@@ -50,11 +50,11 @@
             <StackPanel VerticalAlignment="Bottom">
                 <Button Click="Save" Content="Сохранить настройки"></Button>
                 <Button Click="Get" Content="Загрузить данные"></Button>
-                <Button x:Name="BindItem" Click="OpenColor" Content="По нажатию"></Button>
+                <Button x:Name="BindItem" Click="OpenStateStart" Content="По нажатию"></Button>
                 <Popup Placement="Center" StaysOpen="False" x:Name="Bind">
                     <ListBox>
-                        <Button Click="ColorPurple" Content="По нажатию"></Button>
-                        <Button Click="ColorRed" Content="Постоянно"></Button>
+                        <Button Click="Click" Content="По нажатию"></Button>
+                        <Button Click="Cycle" Content="Постоянно"></Button>
                     </ListBox>
                 </Popup>
             </StackPanel>

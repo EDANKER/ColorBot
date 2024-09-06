@@ -64,6 +64,7 @@ public partial class MainWindow : Window
     private string _sitdown = "Lolx";
     private string _fire = "Lolx";
     private List<string> _move = new List<string>();
+    private bool _stateStart;
 
     public MainWindow()
     {
@@ -99,7 +100,7 @@ public partial class MainWindow : Window
                     _tJsonServices, _bJsonServices, _gJsonServices, _httpServices),
                 new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
                     _isSitDown,
-                    _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
+                    _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move), _stateStart));
     }
 
     private void Start()
@@ -249,5 +250,37 @@ public partial class MainWindow : Window
                 NameItemColor.Background = Brushes.Red;
                 break;
         }
+    }
+
+    private void OpenStateStart(object sender, RoutedEventArgs e)
+    {
+        Bind.IsOpen = true;
+    }
+
+    private void Click(object sender, RoutedEventArgs e)
+    {
+        _stateStart = true;
+        BindItem.Content = "По нажатию";
+    }
+
+    private void Cycle(object sender, RoutedEventArgs e)
+    {
+        _stateStart = false;
+        BindItem.Content = "Постоянно";
+    }
+
+    private void ActiveTrigger(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void SitDownTrigger(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void FireTrigger(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

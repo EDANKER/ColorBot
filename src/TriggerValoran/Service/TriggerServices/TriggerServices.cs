@@ -7,26 +7,31 @@ namespace TriggerValoran.Service.TriggerServices;
 
 public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings triggerSettings) : ITriggerServices
 {
+    private void ItemTriggerWork()
+    {
+        if (triggerSettings.WalkStop && triggerSettings.SitDown &&
+            workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
+            workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+        if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
+            workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+        if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
+            workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+        else
+            workWithServices.Fire(triggerSettings, triggerSettings.Count,
+                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+    }
+    
     public void Trigger()
     {
         while (GetState().Time > 0)
         {
-            if (workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
-            {
-                if (triggerSettings.WalkStop && triggerSettings.SitDown &&
-                    workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
-                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
-                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
-                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-                else
-                    workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                        triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
-            }
+            if (triggerSettings.StateStart && workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
+                ItemTriggerWork();
+            if (!triggerSettings.StateStart && workWithServices.Start(triggerSettings))
+                ItemTriggerWork();
         }
     }
 
