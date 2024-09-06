@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using TriggerValoran.Interface.IHttpServicesRequest;
-using TriggerValoran.Model.DataStateUser;
 
 namespace TriggerValoran.Service.HttpServices.HttpServicesRequest;
 

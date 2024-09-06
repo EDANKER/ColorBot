@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TriggerValoran")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+708ca84ab3b6b804c4abeb53743596164325293b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64e25c37e100be8dd69a4c7fa0f8b701417c7e02")]
 [assembly: System.Reflection.AssemblyProductAttribute("TriggerValoran")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TriggerValoran")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

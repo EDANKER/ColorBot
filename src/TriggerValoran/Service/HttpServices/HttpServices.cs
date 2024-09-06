@@ -8,6 +8,6 @@ public class HttpServices(IHttpServicesRequest httpServicesRequest) : IHttpServi
 {
     public string? Get(string path, int idUser)
     {
-        return httpServicesRequest.GetState(path, "/user", idUser);
+        return httpServicesRequest.GetState(path, "/user/10", idUser);
     }
 }

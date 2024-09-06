@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Windows;
 using System.Windows.Threading;
+using TriggerValoran.Abstract.Color;
 using TriggerValoran.Interface.IColorServices;
 using TriggerValoran.Interface.IEvenClickServices;
 using TriggerValoran.Interface.IHttpServices;
@@ -33,24 +34,23 @@ namespace TriggerValoran;
 
 public partial class MainWindow : Window
 {
-    private IButtonServices _buttonServices;
+    private readonly IButtonServices _buttonServices;
     private ITriggerServices _triggerServices;
-    private IColorServices _colorServices;
-    private IEvenServices _evenServices;
-    private IScreenServices _screenServices;
-    private readonly DispatcherTimer _dispatcherTimer;
-    private IJsonServices<TriggerSettings> _tJsonServices;
-    private IJsonServices<Dictionary<string, byte>> _bJsonServices;
-    private IJsonServices<DataStateUser?> _gJsonServices;
-    private ISleepServices _sleepServices;
-    private IHttpServices _httpServices;
-    private IHttpServicesRequest _httpServicesRequest;
-    private HttpClient _httpClient;
-    private HttpRequestMessage _httpRequestMessage;
-    private HttpResponseMessage _httpResponseMessage;
-    private Color _purpleColor;
-    private RedColor _redColor;
-    private YellowColor _yellowColor;
+    private readonly IColorServices _colorServices;
+    private readonly IEvenServices _evenServices;
+    private readonly IScreenServices _screenServices;
+    private readonly IJsonServices<TriggerSettings> _tJsonServices;
+    private readonly IJsonServices<Dictionary<string, byte>> _bJsonServices;
+    private readonly IJsonServices<DataStateUser?> _gJsonServices;
+    private readonly ISleepServices _sleepServices;
+    private readonly IHttpServices _httpServices;
+    private readonly IHttpServicesRequest _httpServicesRequest;
+    private readonly HttpClient _httpClient;
+    private readonly HttpRequestMessage _httpRequestMessage;
+    private readonly HttpResponseMessage _httpResponseMessage;
+    private readonly Color _purpleColor;
+    private readonly RedColor _redColor;
+    private readonly YellowColor _yellowColor;
 
     private int _boxY;
     private int _boxX;
@@ -60,11 +60,10 @@ public partial class MainWindow : Window
     private int _countFire = 2;
     private bool _isSitDown;
     private bool _isWalkStop;
-    private string _start;
-    private string _sitdown;
-    private string _fire;
-    private List<string> _move;
-    private DataStateUser? _dataStateUser;
+    private string _start = "Lolx";
+    private string _sitdown = "Lolx";
+    private string _fire = "Lolx";
+    private List<string> _move = new List<string>();
 
     public MainWindow()
     {
@@ -87,15 +86,20 @@ public partial class MainWindow : Window
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
             _bJsonServices = new JsonServices<Dictionary<string, byte>>();
-            _triggerServices =
-                new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                        _tJsonServices, _bJsonServices, _gJsonServices, _httpServices),
-                    new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
-                        _isSitDown,
-                        _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
         }
 
+        Update();
         Task.Run(Start);
+    }
+
+    private void Update()
+    {
+        _triggerServices =
+            new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
+                    _tJsonServices, _bJsonServices, _gJsonServices, _httpServices),
+                new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
+                    _isSitDown,
+                    _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move)));
     }
 
     private void Start()
@@ -159,20 +163,20 @@ public partial class MainWindow : Window
 
     private void Count3(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "3" + "выстрел";
+        NameItemCountFire.Content = "3" + " выстрел";
         CountFire.IsOpen = false;
     }
 
     private void Count1(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "1" + "выстрел";
+        NameItemCountFire.Content = "1" + " выстрел";
         _countFire = 1;
         CountFire.IsOpen = false;
     }
 
     private void Count2(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "2" + "выстрел";
+        NameItemCountFire.Content = "2" + " выстрел";
         _countFire = 2;
         CountFire.IsOpen = false;
     }
@@ -203,32 +207,32 @@ public partial class MainWindow : Window
 
     private void Save(object sender, RoutedEventArgs e)
     {
+        Update();
         _triggerServices.Save();
     }
 
     private void Get(object sender, RoutedEventArgs e)
     {
-        TriggerSettings? jTriggerSettings = _triggerServices.GetSave();
-        if (jTriggerSettings != null)
-        {
-            _countFire = jTriggerSettings.Count;
-            _boxX = jTriggerSettings.BoxSizeX;
-            _boxY = jTriggerSettings.BoxSizeY;
-            _sleepRepeatTime = jTriggerSettings.SleepTimeRepeatFire;
-            _sleepOneTime = jTriggerSettings.SleepTimeOneFire;
-            _boxColor = jTriggerSettings.BoxColor;
-            _isSitDown = jTriggerSettings.SitDown;
-            _isWalkStop = jTriggerSettings.WalkStop;
-        }
-
-        SliderY.Value = _boxY;
+        TriggerSettings jTriggerSettings = _triggerServices.GetSave();
+        _countFire = jTriggerSettings.Count;
+        _boxX = jTriggerSettings.BoxSizeX;
+        SliderY.Value = _boxY = jTriggerSettings.BoxSizeY;
+        _sleepRepeatTime = jTriggerSettings.SleepTimeRepeatFire;
+        _sleepOneTime = jTriggerSettings.SleepTimeOneFire;
+        _boxColor = jTriggerSettings.BoxColor;
+        _isSitDown = jTriggerSettings.SitDown;
+        _isWalkStop = jTriggerSettings.WalkStop;
         SliderX.Value = _boxX;
         SliderTime.Value = _sleepRepeatTime;
-        NameItemCountFire.Content = _countFire + "выстрел";
+        NameItemCountFire.Content = _countFire + " выстрел";
         IsSitDown.IsChecked = _isSitDown;
         IsWalkStop.IsChecked = _isWalkStop;
         SliderTimeFire.Value = _sleepOneTime;
+        GetColor();
+    }
 
+    private void GetColor()
+    {
         switch (_boxColor)
         {
             case "Purple":

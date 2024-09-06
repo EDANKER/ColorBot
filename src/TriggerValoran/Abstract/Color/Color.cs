@@ -1,4 +1,4 @@
-﻿namespace TriggerValoran.Model.Color;
+﻿namespace TriggerValoran.Abstract.Color;
 
 public abstract class Color
 {

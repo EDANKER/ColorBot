@@ -1,6 +1,5 @@
 ﻿using TriggerValoran.Interface.IEvenClickServices;
 using TriggerValoran.Interface.IMemoryButtonServices;
-using TriggerValoran.Model.MemoryButton;
 
 namespace TriggerValoran.Service.EvenServices;
 

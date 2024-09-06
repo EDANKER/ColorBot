@@ -9,7 +9,6 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
 {
     public void Trigger()
     {
-        workWithServices.SaveButton("dataButton.json");
         while (GetState().Time > 0)
         {
             if (workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
@@ -33,12 +32,12 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
 
     public bool Save()
     {
-        return workWithServices.SaveSettings(triggerSettings, "dataTrigger.json");
+        return workWithServices.SaveSettings(triggerSettings, @"C:\Users\Rider666\Downloads\dataTrigger.json");
     }
 
     public TriggerSettings GetSave()
     {
-        return workWithServices.GetSaveSettings("dataTrigger.json");
+        return workWithServices.GetSaveSettings(@"C:\Users\Rider666\Downloads\dataTrigger.json");
     }
 
     public DataStateUser GetState()

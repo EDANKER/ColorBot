@@ -1,6 +1,6 @@
 ﻿namespace TriggerValoran.Model.Color.PurpleColor;
 
-public class PurpleColor : Color
+public class PurpleColor : Abstract.Color.Color
 {
     public override bool CreateColor(System.Drawing.Color color)
     {

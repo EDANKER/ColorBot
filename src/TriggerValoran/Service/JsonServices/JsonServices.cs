@@ -37,10 +37,7 @@ public class JsonServices<T> : IJsonServices<T>
     {
         try
         {
-            using StreamWriter streamWriter = File.CreateText(file);
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(streamWriter, item);
-
+            File.WriteAllText(file, JsonConvert.SerializeObject(item));
             return true;
         }
         catch (Exception e)

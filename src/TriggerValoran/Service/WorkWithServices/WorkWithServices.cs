@@ -19,7 +19,7 @@ public class WorkWithServices(
     IJsonServices<DataStateUser?> gJsonServices,
     IHttpServices httpServices) : IWorkWithServices
 {
-    private readonly string _file = "dataButton.json";
+    private readonly string _file = "СЫЯ";
 
     private byte ByteButton(string button)
     {
