@@ -2,5 +2,5 @@
 
 public abstract class Color
 {
-    public abstract bool CreateColor(System.Drawing.Color color);
+    public abstract bool SelectColor(System.Drawing.Color color);
 }

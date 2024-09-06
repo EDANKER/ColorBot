@@ -60,11 +60,11 @@ public partial class MainWindow : Window
     private int _countFire = 2;
     private bool _isSitDown;
     private bool _isWalkStop;
-    private string _start = "Lolx";
-    private string _sitdown = "Lolx";
-    private string _fire = "Lolx";
-    private List<string> _move = new List<string>();
-    private bool _stateStart;
+    private string _start = "Shift";
+    private string _sitdown = "Ctrl";
+    private string _fire = "V";
+    private List<string> _move = new();
+    private string _stateStart = "По нажатию";
 
     public MainWindow()
     {
@@ -87,25 +87,28 @@ public partial class MainWindow : Window
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
             _bJsonServices = new JsonServices<Dictionary<string, byte>>();
+            
+            _triggerServices =
+                new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
+                        _tJsonServices, _bJsonServices, _gJsonServices, _httpServices));
         }
-
         Update();
         Task.Run(Start);
     }
 
-    private void Update()
+    private TriggerSettings Update()
     {
-        _triggerServices =
-            new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                    _tJsonServices, _bJsonServices, _gJsonServices, _httpServices),
-                new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
-                    _isSitDown,
-                    _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move), _stateStart));
+        return new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
+            _isSitDown,
+            _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move), _stateStart);
     }
 
     private void Start()
     {
-        _triggerServices.Trigger();
+        while (true)
+        {
+            _triggerServices.Trigger(Update());
+        }
     }
 
     private void BoxX(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -196,6 +199,7 @@ public partial class MainWindow : Window
         NameItemColor.Background = Brushes.Red;
         _boxColor = "Red";
         Color.IsOpen = false;
+        Update();
     }
 
     private void ColorYellow(object sender, RoutedEventArgs e)
@@ -204,12 +208,13 @@ public partial class MainWindow : Window
         NameItemColor.Background = Brushes.Yellow;
         _boxColor = "Yellow";
         Color.IsOpen = false;
+        Update();
     }
 
     private void Save(object sender, RoutedEventArgs e)
     {
         Update();
-        _triggerServices.Save();
+        _triggerServices.Save(Update());
     }
 
     private void Get(object sender, RoutedEventArgs e)
@@ -229,8 +234,8 @@ public partial class MainWindow : Window
         IsSitDown.IsChecked = _isSitDown;
         IsWalkStop.IsChecked = _isWalkStop;
         SliderTimeFire.Value = _sleepOneTime;
+        BindItem.Content = _stateStart = jTriggerSettings.StateStart;
         GetColor();
-        Update();
     }
 
     private void GetColor()
@@ -259,14 +264,16 @@ public partial class MainWindow : Window
 
     private void Click(object sender, RoutedEventArgs e)
     {
-        _stateStart = true;
+        _stateStart = "По нажатию";
         BindItem.Content = "По нажатию";
+        Update();
     }
 
     private void Cycle(object sender, RoutedEventArgs e)
     {
-        _stateStart = false;
+        _stateStart = "Постоянно";
         BindItem.Content = "Постоянно";
+        Update();
     }
 
     private void ActiveTrigger(object sender, RoutedEventArgs e)

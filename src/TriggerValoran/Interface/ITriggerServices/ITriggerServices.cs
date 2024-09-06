@@ -1,13 +1,12 @@
-﻿using System.Windows.Threading;
-using TriggerValoran.Model.DataStateUser;
+﻿using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Interface.ITriggerServices;
 
 public interface ITriggerServices
 {
-    void Trigger();
-    bool Save();
+    void Trigger(TriggerSettings triggerSettings);
+    bool Save(TriggerSettings triggerSettings);
     TriggerSettings GetSave();
-    DataStateUser GetState();
+    DataStateUser GetState(TriggerSettings triggerSettings);
 }

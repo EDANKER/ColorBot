@@ -23,19 +23,19 @@ public class ColorServices(Abstract.Color.Color purpleColor, YellowColor yellowC
                     {
                         Color color = bitmap.GetPixel(i, j);
 
-                        if (purpleColor.CreateColor(color) && boxColor == "Red")
+                        if (purpleColor.SelectColor(color) && boxColor == "Red")
                         {
                             foundColor = true;
                             break;
                         }
 
-                        if (yellowColor.CreateColor(color) && boxColor == "Yellow")
+                        if (yellowColor.SelectColor(color) && boxColor == "Yellow")
                         {
                             foundColor = true;
                             break;
                         }
 
-                        if (redColor.CreateColor(color) && boxColor == "Purple")
+                        if (redColor.SelectColor(color) && boxColor == "Purple")
                         {
                             foundColor = true;
                             break;

@@ -5,9 +5,9 @@ using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.TriggerServices;
 
-public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings triggerSettings) : ITriggerServices
+public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServices
 {
-    private void ItemTriggerWork()
+    private void ItemTriggerWork(TriggerSettings triggerSettings)
     {
         if (triggerSettings.WalkStop && triggerSettings.SitDown &&
             workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
@@ -23,19 +23,17 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
             workWithServices.Fire(triggerSettings, triggerSettings.Count,
                 triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
     }
-    
-    public void Trigger()
+
+    public void Trigger(TriggerSettings triggerSettings)
     {
-        while (GetState().Time > 0)
-        {
-            if (triggerSettings.StateStart && workWithServices.ClickForStart(triggerSettings) && workWithServices.Start(triggerSettings))
-                ItemTriggerWork();
-            if (!triggerSettings.StateStart && workWithServices.Start(triggerSettings))
-                ItemTriggerWork();
-        }
+        if (triggerSettings.StateStart == "По нажатию" && workWithServices.ClickForStart(triggerSettings) &&
+            workWithServices.Start(triggerSettings))
+            ItemTriggerWork(triggerSettings);
+        else if (triggerSettings.StateStart == "Постоянно" && workWithServices.Start(triggerSettings))
+            ItemTriggerWork(triggerSettings);
     }
 
-    public bool Save()
+    public bool Save(TriggerSettings triggerSettings)
     {
         return workWithServices.SaveSettings(triggerSettings, "dataTrigger.json");
     }
@@ -45,10 +43,11 @@ public class TriggerServices(IWorkWithServices workWithServices, TriggerSettings
         return workWithServices.GetSaveSettings("dataTrigger.json");
     }
 
-    public DataStateUser GetState()
+    public DataStateUser GetState(TriggerSettings triggerSettings)
     {
         DataStateUser? dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
-        if (dataStateUser != null) return dataStateUser;
+        if (dataStateUser != null)
+            return dataStateUser;
         throw new NullReferenceException();
     }
 }
