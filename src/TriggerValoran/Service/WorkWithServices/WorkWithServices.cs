@@ -20,11 +20,12 @@ public class WorkWithServices(
     IJsonServices<DataStateUser?> gJsonServices,
     IHttpServices httpServices) : IWorkWithServices
 {
-    private readonly string _file = "dataButton.json";
+    private readonly string _fileButton = "dataButton.json";
+    private readonly string _fileSettings = "dataTrigger.json";
 
     private byte ByteButton(string button)
     {
-        GetSaveButton(_file).TryGetValue(button, out byte value);
+        GetSaveButton().TryGetValue(button, out byte value);
         return value;
     }
 
@@ -46,7 +47,7 @@ public class WorkWithServices(
     public bool WalkStop(TriggerSettings triggerSettings)
     {
         List<byte> bytesButton = new List<byte>();
-        for (int i = 2; i < GetSaveButton(_file).Count; i++)
+        for (int i = 2; i < GetSaveButton().Count; i++)
             bytesButton.Add(ByteButton(triggerSettings.SettingsButton.Move[i]));
         return evenServices.WalkStop(1, bytesButton, 0x22,
             0x21);
@@ -63,33 +64,33 @@ public class WorkWithServices(
         return evenServices.ClickForStart(0x22);
     }
 
-    public bool SaveSettings(TriggerSettings item, string file)
+    public bool SaveSettings(TriggerSettings item)
     {
-        bool isSave = tJsonServices.Ser(item, file);
+        bool isSave = tJsonServices.Ser(item, _fileSettings);
         if (!isSave)
             throw new NullReferenceException();
         return isSave;
     }
 
-    public TriggerSettings GetSaveSettings(string file)
+    public TriggerSettings GetSaveSettings()
     {
-        TriggerSettings? triggerSettings = tJsonServices.Des(file);
+        TriggerSettings? triggerSettings = tJsonServices.Des(_fileSettings);
         if (triggerSettings == null)
             throw new NullReferenceException();
         return triggerSettings;
     }
 
-    public bool SaveButton(string file)
+    public bool SaveButton()
     {
-        bool isSave = bJsonServices.Ser(evenServices.ItemButtonAll(), file);
+        bool isSave = bJsonServices.Ser(evenServices.ItemButtonAll(), _fileButton);
         if (!isSave)
             throw new NullReferenceException();
         return isSave;
     }
 
-    public Dictionary<string, byte> GetSaveButton(string file)
+    public Dictionary<string, byte> GetSaveButton()
     {
-        Dictionary<string, byte>? memoryButton = bJsonServices.Des(file);
+        Dictionary<string, byte>? memoryButton = bJsonServices.Des(_fileButton);
         if (memoryButton == null)
             throw new NullReferenceException();
         return memoryButton;

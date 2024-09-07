@@ -6,7 +6,9 @@ namespace TriggerValoran.Interface.ITriggerServices;
 public interface ITriggerServices
 {
     void Trigger(TriggerSettings triggerSettings);
-    bool Save(TriggerSettings triggerSettings);
-    TriggerSettings GetSave();
+    bool SaveSettings(TriggerSettings triggerSettings);
+    TriggerSettings GetSaveSettings();
     DataStateUser GetState(TriggerSettings triggerSettings);
+    Dictionary<string, byte> GetSaveButton();
+    bool SaveButton();
 }

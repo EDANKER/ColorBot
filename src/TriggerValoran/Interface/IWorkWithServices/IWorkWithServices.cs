@@ -11,9 +11,9 @@ public interface IWorkWithServices
     bool WalkStop(TriggerSettings triggerSettings);
     bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire);
     bool ClickForStart(TriggerSettings triggerSettings);
-    bool SaveSettings(TriggerSettings item, string file);
-    bool SaveButton(string file);
-    TriggerSettings GetSaveSettings(string file);
-    Dictionary<string, byte> GetSaveButton(string file);
+    bool SaveSettings(TriggerSettings item);
+    bool SaveButton();
+    TriggerSettings GetSaveSettings();
+    Dictionary<string, byte> GetSaveButton();
     DataStateUser GetState(string path, int idUser);
 }

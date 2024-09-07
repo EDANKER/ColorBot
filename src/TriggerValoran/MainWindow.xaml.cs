@@ -35,7 +35,7 @@ namespace TriggerValoran;
 public partial class MainWindow : Window
 {
     private readonly IButtonServices _buttonServices;
-    private ITriggerServices _triggerServices;
+    private readonly ITriggerServices _triggerServices;
     private readonly IColorServices _colorServices;
     private readonly IEvenServices _evenServices;
     private readonly IScreenServices _screenServices;
@@ -199,7 +199,6 @@ public partial class MainWindow : Window
         NameItemColor.Background = Brushes.Red;
         _boxColor = "Red";
         Color.IsOpen = false;
-        Update();
     }
 
     private void ColorYellow(object sender, RoutedEventArgs e)
@@ -208,18 +207,16 @@ public partial class MainWindow : Window
         NameItemColor.Background = Brushes.Yellow;
         _boxColor = "Yellow";
         Color.IsOpen = false;
-        Update();
     }
 
     private void Save(object sender, RoutedEventArgs e)
     {
-        Update();
-        _triggerServices.Save(Update());
+        _triggerServices.SaveSettings(Update());
     }
 
     private void Get(object sender, RoutedEventArgs e)
     {
-        TriggerSettings jTriggerSettings = _triggerServices.GetSave();
+        TriggerSettings jTriggerSettings = _triggerServices.GetSaveSettings();
         _countFire = jTriggerSettings.Count;
         _boxX = jTriggerSettings.BoxSizeX;
         SliderY.Value = _boxY = jTriggerSettings.BoxSizeY;
@@ -266,14 +263,12 @@ public partial class MainWindow : Window
     {
         _stateStart = "По нажатию";
         BindItem.Content = "По нажатию";
-        Update();
     }
 
     private void Cycle(object sender, RoutedEventArgs e)
     {
         _stateStart = "Постоянно";
         BindItem.Content = "Постоянно";
-        Update();
     }
 
     private void ActiveTrigger(object sender, RoutedEventArgs e)

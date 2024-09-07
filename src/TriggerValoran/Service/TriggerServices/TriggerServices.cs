@@ -33,19 +33,29 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
             ItemTriggerWork(triggerSettings);
     }
 
-    public bool Save(TriggerSettings triggerSettings)
+    public bool SaveSettings(TriggerSettings triggerSettings)
     {
-        return workWithServices.SaveSettings(triggerSettings, "dataTrigger.json");
+        return workWithServices.SaveSettings(triggerSettings);
     }
 
-    public TriggerSettings GetSave()
+    public TriggerSettings GetSaveSettings()
     {
-        return workWithServices.GetSaveSettings("dataTrigger.json");
+        return workWithServices.GetSaveSettings();
     }
 
     public DataStateUser GetState(TriggerSettings triggerSettings)
     {
         DataStateUser dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
         return dataStateUser;
+    }
+
+    public Dictionary<string, byte> GetSaveButton()
+    {
+        return workWithServices.GetSaveButton();
+    }
+
+    public bool SaveButton()
+    {
+        return workWithServices.SaveButton();
     }
 }
