@@ -45,9 +45,7 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
 
     public DataStateUser GetState(TriggerSettings triggerSettings)
     {
-        DataStateUser? dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
-        if (dataStateUser != null)
-            return dataStateUser;
-        throw new NullReferenceException();
+        DataStateUser dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
+        return dataStateUser;
     }
 }

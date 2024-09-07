@@ -15,5 +15,5 @@ public interface IWorkWithServices
     bool SaveButton(string file);
     TriggerSettings GetSaveSettings(string file);
     Dictionary<string, byte> GetSaveButton(string file);
-    DataStateUser? GetState(string path, int idUser);
+    DataStateUser GetState(string path, int idUser);
 }

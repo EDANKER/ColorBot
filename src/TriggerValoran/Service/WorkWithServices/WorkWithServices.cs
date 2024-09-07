@@ -7,6 +7,7 @@ using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.IWorkWithServices;
 using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.TriggerSettings;
+using NullReferenceException = System.NullReferenceException;
 
 namespace TriggerValoran.Service.WorkWithServices;
 
@@ -53,7 +54,7 @@ public class WorkWithServices(
 
     public bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire)
     {
-        return evenServices.Fire(1, ByteButton(triggerSettings.SettingsButton.Fire), sleepRepeatFire, sleepOneFire,
+        return evenServices.Fire(count, ByteButton(triggerSettings.SettingsButton.Fire), sleepRepeatFire, sleepOneFire,
             0x21, 0x22);
     }
 
@@ -94,11 +95,15 @@ public class WorkWithServices(
         return memoryButton;
     }
 
-    public DataStateUser? GetState(string path, int idUser)
+    public DataStateUser GetState(string path, int idUser)
     {
         string? json = httpServices.Get(path, idUser);
         if (json != null)
-            return gJsonServices.DesInNetwork(json);
-        return null;
+        {
+            DataStateUser? dataStateUser = gJsonServices.DesInNetwork(json);
+            if (dataStateUser != null)
+                return dataStateUser;
+        }
+        throw new NullReferenceException();
     }
 }
