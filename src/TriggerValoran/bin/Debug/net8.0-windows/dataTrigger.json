@@ -1,1 +1,1 @@
-{"Count":2,"BoxSizeX":20,"BoxSizeY":19,"SleepTimeRepeatFire":53,"SleepTimeOneFire":39,"BoxColor":"Purple","SitDown":false,"WalkStop":false,"StateStart":"Постоянно","SettingsButton":{"Start":"Shift","Fire":"V","SitDown":"Ctrl","Move":[]}}
+{"Count":2,"BoxSizeX":20,"BoxSizeY":19,"SleepTimeRepeatFire":53,"SleepTimeOneFire":39,"BoxColor":"Red","SitDown":false,"WalkStop":false,"StateStart":"По нажатию","SettingsButton":{"Start":"Shift","Fire":"V","SitDown":"Ctrl","Move":[]}}

@@ -1,7 +1,5 @@
 ﻿using TriggerValoran.Model.DataStateUser;
-using TriggerValoran.Model.MemoryButton;
 using TriggerValoran.Model.Settings.TriggerSettings;
-using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Interface.IWorkWithServices;
 

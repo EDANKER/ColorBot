@@ -39,9 +39,9 @@
                     <Button Click="Count3" Content="3 выстрела"></Button>
                 </ListBox>
             </Popup>
-            <Button Click="ActiveTrigger" Content="Shift"></Button>
-            <Button Click="SitDownTrigger" Content="Ctrl"></Button>
-            <Button Click="FireTrigger" Content="V"></Button>
+            <Button x:Name="BindActiveTrigger" Click="ActiveTrigger" Content="Shift"></Button>
+            <Button x:Name="BindSitDownTrigger" Click="SitDownTrigger" Content="Ctrl"></Button>
+            <Button x:Name="BindFireTrigger" Click="FireTrigger" Content="V"></Button>
         </StackPanel>
         <StackPanel Width="300" Background="#212121" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">
             <StackPanel>

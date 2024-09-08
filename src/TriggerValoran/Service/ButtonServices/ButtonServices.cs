@@ -86,9 +86,11 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
 
     public Dictionary<string, byte> ItemButtonAll()
     {
-        MemoryButton memoryButton = new MemoryButton("Ctrl", 0x22);
+        MemoryButton memoryButton = new MemoryButton("V", 0x56);
         Dictionary<string, byte> dictionary = new Dictionary<string, byte>();
-        dictionary.Add(memoryButton.Name, memoryButton.Button);
+        dictionary.Add("V", 0x56);
+        dictionary.Add("Ctrl", 0x11);
+        dictionary.Add("Shift", 0xA0);
         return dictionary;
     }
 }

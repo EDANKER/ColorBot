@@ -60,7 +60,7 @@ public partial class MainWindow : Window
     private bool _isSitDown;
     private bool _isWalkStop;
     private string _start = "Shift";
-    private string _sitdown = "Ctrl";
+    private string _sitDown = "Ctrl";
     private string _fire = "V";
     private List<string> _move = new();
     private string _stateStart = "По нажатию";
@@ -99,7 +99,7 @@ public partial class MainWindow : Window
     {
         return new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
             _isSitDown,
-            _isWalkStop, new SettingsButton(_start, _fire, _sitdown, _move), _stateStart);
+            _isWalkStop, new SettingsButton(_start, _fire, _sitDown, _move), _stateStart);
     }
 
     private void Start()
@@ -274,16 +274,19 @@ public partial class MainWindow : Window
 
     private void ActiveTrigger(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        _start = _triggerServices.SelectButton();
+        BindActiveTrigger.Content = _triggerServices.SelectButton();
     }
 
     private void SitDownTrigger(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        _sitDown = _triggerServices.SelectButton();
+        BindSitDownTrigger.Content = _triggerServices.SelectButton();
     }
 
     private void FireTrigger(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        _fire = _triggerServices.SelectButton();
+        BindFireTrigger.Content = _triggerServices.SelectButton();
     }
 }

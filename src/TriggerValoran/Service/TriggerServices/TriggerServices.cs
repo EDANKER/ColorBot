@@ -2,7 +2,6 @@
 using TriggerValoran.Interface.IWorkWithServices;
 using TriggerValoran.Model.DataStateUser;
 using TriggerValoran.Model.Settings.TriggerSettings;
-using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Service.TriggerServices;
 
@@ -27,10 +26,11 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
 
     public void Trigger(TriggerSettings triggerSettings)
     {
-        if (triggerSettings.StateStart == "По нажатию" && workWithServices.ClickForStart(triggerSettings) &&
-            workWithServices.Start(triggerSettings))
+        workWithServices.SaveButton();
+        if (triggerSettings.StateStart == "Постоянно" && workWithServices.Start(triggerSettings))
             ItemTriggerWork(triggerSettings);
-        else if (triggerSettings.StateStart == "Постоянно" && workWithServices.Start(triggerSettings))
+        else if (triggerSettings.StateStart == "По нажатию" && workWithServices.ClickForStart(triggerSettings) &&
+            workWithServices.Start(triggerSettings))
             ItemTriggerWork(triggerSettings);
     }
 
@@ -58,5 +58,10 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
     public bool SaveButton()
     {
         return workWithServices.SaveButton();
+    }
+
+    public string SelectButton()
+    {
+        return "";
     }
 }

@@ -41,7 +41,7 @@ public class WorkWithServices(
     public bool SitDown(TriggerSettings triggerSettings)
     {
         return evenServices.SitDown(1, ByteButton(triggerSettings.SettingsButton.SitDown), 50,
-            0x21, 0x22);
+            0x2, 0x0);
     }
 
     public bool WalkStop(TriggerSettings triggerSettings)
@@ -49,14 +49,14 @@ public class WorkWithServices(
         List<byte> bytesButton = new List<byte>();
         for (int i = 2; i < GetSaveButton().Count; i++)
             bytesButton.Add(ByteButton(triggerSettings.SettingsButton.Move[i]));
-        return evenServices.WalkStop(1, bytesButton, 0x22,
-            0x21);
+        return evenServices.WalkStop(1, bytesButton, 0x2,
+            0x0);
     }
 
     public bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire)
     {
         return evenServices.Fire(count, ByteButton(triggerSettings.SettingsButton.Fire), sleepRepeatFire, sleepOneFire,
-            0x21, 0x22);
+            0x2, 0x0);
     }
 
     public bool ClickForStart(TriggerSettings triggerSettings)
