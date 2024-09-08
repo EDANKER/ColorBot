@@ -23,7 +23,7 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
         }
     }
 
-    public bool ItemButtonClickUpDownFire(byte memoryButton, int count, byte up, byte down, int sleepRepeatFire,
+    public bool ItemButtonClickFire(byte memoryButton, int count, byte up, byte down, int sleepRepeatFire,
         int sleepOneFire)
     {
         try
@@ -41,11 +41,12 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
         }
     }
 
-    public bool ItemButtonClickUp(byte memoryButton, int count, byte up, byte down)
+    public bool ItemButtonClickWalk(List<byte> memoryButtons, int count, byte up, byte down)
     {
         try
         {
-            UseDll(memoryButton, count, up, down, 2);
+            for (int i = 0; i < memoryButtons.Count; i++)
+                UseDll(memoryButtons[i], count, up, down, 2);
             return true;
         }
         catch (Exception e)
@@ -55,7 +56,7 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
         }
     }
 
-    public bool ItemButtonClickUpDownSitDown(byte memoryButton, int count, byte up, byte down, int sleep)
+    public bool ItemButtonClickSitDown(byte memoryButton, int count, byte up, byte down, int sleep)
     {
         try
         {
