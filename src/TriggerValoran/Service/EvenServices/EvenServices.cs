@@ -5,9 +5,9 @@ namespace TriggerValoran.Service.EvenServices;
 
 public class EvenServices(IButtonServices buttonServices) : IEvenServices
 {
-    public bool Fire(int count, byte memoryButton, int sleepRepeatFire, int sleepOneFire, byte up, byte down)
+    public bool Fire(int count, byte memoryButton,int sleepFire, byte up, byte down)
     {
-        return buttonServices.ItemButtonClickFire(memoryButton, count, up, down, sleepRepeatFire, sleepOneFire);
+        return buttonServices.ItemButtonClickFire(memoryButton, count, up, down, sleepFire);
     }
 
     public bool WalkStop(int count, List<byte> memoryButton, byte up, byte down)

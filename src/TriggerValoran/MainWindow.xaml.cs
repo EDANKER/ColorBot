@@ -53,8 +53,7 @@ public partial class MainWindow : Window
 
     private int _boxY;
     private int _boxX;
-    private int _sleepRepeatTime;
-    private int _sleepOneTime;
+    private int _sleepTime;
     private string _boxColor = "Purple";
     private int _countFire = 2;
     private bool _isSitDown;
@@ -97,13 +96,14 @@ public partial class MainWindow : Window
 
     private TriggerSettings Update()
     {
-        return new TriggerSettings(_countFire, _boxX, _boxY, _sleepRepeatTime, _sleepOneTime, _boxColor,
+        return new TriggerSettings(_countFire, _boxX, _boxY, _sleepTime, _boxColor,
             _isSitDown,
             _isWalkStop, new SettingsButton(_start, _fire, _sitDown, _move), _stateStart);
     }
 
     private void Start()
     {
+        _triggerServices.SaveButton();
         while (true)
         {
             _triggerServices.Trigger(Update());
@@ -121,17 +121,11 @@ public partial class MainWindow : Window
         TextY.Text = $"Box по Y {e.NewValue.ToString("0")}px";
         _boxY = (int)e.NewValue;
     }
-
-    private void SleepRepeatFire(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        TextSleep.Text = $"Повторный выстрел время {e.NewValue.ToString("0")} секунд";
-        _sleepRepeatTime = (int)e.NewValue;
-    }
-
+    
     private void SleepOneFire(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         TextSleepFire.Text = $"Повторный выстрел время {e.NewValue.ToString("0")} секунд";
-        _sleepOneTime = (int)e.NewValue;
+        _sleepTime = (int)e.NewValue;
     }
 
     private void SitDown(object sender, RoutedEventArgs e)
@@ -219,17 +213,15 @@ public partial class MainWindow : Window
         _countFire = jTriggerSettings.Count;
         _boxX = jTriggerSettings.BoxSizeX;
         SliderY.Value = _boxY = jTriggerSettings.BoxSizeY;
-        _sleepRepeatTime = jTriggerSettings.SleepTimeRepeatFire;
-        _sleepOneTime = jTriggerSettings.SleepTimeOneFire;
+        _sleepTime = jTriggerSettings.SleepTime;
         _boxColor = jTriggerSettings.BoxColor;
         _isSitDown = jTriggerSettings.SitDown;
         _isWalkStop = jTriggerSettings.WalkStop;
         SliderX.Value = _boxX;
-        SliderTime.Value = _sleepRepeatTime;
         NameItemCountFire.Content = _countFire + " выстрел";
         IsSitDown.IsChecked = _isSitDown;
         IsWalkStop.IsChecked = _isWalkStop;
-        SliderTimeFire.Value = _sleepOneTime;
+        SliderTimeFire.Value = _sleepTime;
         BindItem.Content = _stateStart = jTriggerSettings.StateStart;
         GetColor();
     }

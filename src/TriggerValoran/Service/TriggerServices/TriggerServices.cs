@@ -11,22 +11,17 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
     {
         if (triggerSettings.WalkStop && triggerSettings.SitDown &&
             workWithServices.WalkStop(triggerSettings) && workWithServices.SitDown(triggerSettings))
-            workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+            workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTime);
         if (triggerSettings.SitDown && workWithServices.SitDown(triggerSettings))
-            workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+            workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTime);
         if (triggerSettings.WalkStop && workWithServices.WalkStop(triggerSettings))
-            workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+            workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTime);
         else
-            workWithServices.Fire(triggerSettings, triggerSettings.Count,
-                triggerSettings.SleepTimeRepeatFire, triggerSettings.SleepTimeOneFire);
+            workWithServices.Fire(triggerSettings, triggerSettings.Count, triggerSettings.SleepTime);
     }
 
     public void Trigger(TriggerSettings triggerSettings)
     {
-        workWithServices.SaveButton();
         if (triggerSettings.StateStart == "Постоянно" && workWithServices.Start(triggerSettings))
             ItemTriggerWork(triggerSettings);
         else if (triggerSettings.StateStart == "По нажатию" && workWithServices.ClickForStart(triggerSettings) &&
@@ -44,7 +39,7 @@ public class TriggerServices(IWorkWithServices workWithServices) : ITriggerServi
         return workWithServices.GetSaveSettings();
     }
 
-    public DataStateUser GetState(TriggerSettings triggerSettings)
+    public DataStateUser GetState()
     {
         DataStateUser dataStateUser = workWithServices.GetState("https://localhost:8080", 1);
         return dataStateUser;

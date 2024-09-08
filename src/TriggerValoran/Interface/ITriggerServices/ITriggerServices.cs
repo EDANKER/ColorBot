@@ -8,7 +8,7 @@ public interface ITriggerServices
     void Trigger(TriggerSettings triggerSettings);
     bool SaveSettings(TriggerSettings triggerSettings);
     TriggerSettings GetSaveSettings();
-    DataStateUser GetState(TriggerSettings triggerSettings);
+    DataStateUser GetState();
     Dictionary<string, byte> GetSaveButton();
     bool SaveButton();
     string SelectButton();

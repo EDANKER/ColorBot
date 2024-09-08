@@ -14,9 +14,7 @@
             <Slider x:Name="SliderY" Foreground="White" ToolTip="Размер по Y" Value="0" Minimum="0" Maximum="50" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="BoxY"></Slider>
             <TextBlock HorizontalAlignment="Center" FontSize="20"  Text="Box по X 0" x:Name="TextX" Foreground="White"></TextBlock>
             <Slider x:Name="SliderX" Foreground="White" ToolTip="Размер по X" Value="0" Minimum="0" Maximum="50" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="BoxX"></Slider>
-            <TextBlock HorizontalAlignment="Center" FontSize="11"  Text="Повторный выстрел секунд 0" x:Name="TextSleep" Foreground="White"></TextBlock>
-            <Slider x:Name="SliderTime" Foreground="White" ToolTip="Промежуток времени между повторным выстрелом" Value="0" Minimum="0" Maximum="500" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="SleepRepeatFire"></Slider>
-            <TextBlock HorizontalAlignment="Center" FontSize="11"  Text="выстрел выстрел секунд 0" x:Name="TextSleepFire" Foreground="White"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontSize="11"  Text="Выстрел через секунд 0" x:Name="TextSleepFire" Foreground="White"></TextBlock>
             <Slider x:Name="SliderTimeFire" Foreground="White" ToolTip="Промежуток времени между выстрелом" Value="0" Minimum="0" Maximum="500" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="SleepOneFire"></Slider>
             <ToggleButton x:Name="IsSitDown" Content="Включить присидание" Checked="SitDown" Unchecked="OffSitDown"></ToggleButton>
             <ToggleButton x:Name="IsWalkStop" Content="Включить остановку" Checked="WalkStop" Unchecked="OffWalkStop"></ToggleButton>

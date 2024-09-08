@@ -23,15 +23,13 @@ public class ButtonServices(ISleepServices sleepServices) : IButtonServices
         }
     }
 
-    public bool ItemButtonClickFire(byte memoryButton, int count, byte up, byte down, int sleepRepeatFire,
-        int sleepOneFire)
+    public bool ItemButtonClickFire(byte memoryButton, int count, byte up, byte down,
+        int sleepFire)
     {
         try
         {
-            sleepServices.Sleep(sleepOneFire);
+            sleepServices.Sleep(sleepFire);
             UseDll(memoryButton, count, up, down, 1);
-            sleepServices.Sleep(sleepRepeatFire);
-
             return true;
         }
         catch (Exception e)

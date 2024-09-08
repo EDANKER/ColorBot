@@ -53,9 +53,9 @@ public class WorkWithServices(
             0x0);
     }
 
-    public bool Fire(TriggerSettings triggerSettings, int count, int sleepRepeatFire, int sleepOneFire)
+    public bool Fire(TriggerSettings triggerSettings, int count, int sleepFire)
     {
-        return evenServices.Fire(count, ByteButton(triggerSettings.SettingsButton.Fire), sleepRepeatFire, sleepOneFire,
+        return evenServices.Fire(count, ByteButton(triggerSettings.SettingsButton.Fire), sleepFire,
             0x2, 0x0);
     }
 
