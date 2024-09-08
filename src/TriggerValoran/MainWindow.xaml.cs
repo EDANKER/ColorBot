@@ -11,13 +11,12 @@ using TriggerValoran.Interface.IMemoryButtonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.ISleepServices;
 using TriggerValoran.Interface.ITriggerServices;
-using TriggerValoran.Model.Color;
 using TriggerValoran.Model.Color.PurpleColor;
 using TriggerValoran.Model.Color.RedColor;
 using TriggerValoran.Model.Color.YellowColor;
 using TriggerValoran.Model.DataStateUser;
-using TriggerValoran.Model.TriggerSettings;
-using TriggerValoran.Model.TriggerSettings.SettingsButton;
+using TriggerValoran.Model.Settings.SettingsButton;
+using TriggerValoran.Model.Settings.TriggerSettings;
 using TriggerValoran.Service.ButtonServices;
 using TriggerValoran.Service.ColorServices;
 using TriggerValoran.Service.EvenServices;
@@ -261,12 +260,14 @@ public partial class MainWindow : Window
 
     private void Click(object sender, RoutedEventArgs e)
     {
+        Bind.IsOpen = false;
         _stateStart = "По нажатию";
         BindItem.Content = "По нажатию";
     }
 
     private void Cycle(object sender, RoutedEventArgs e)
     {
+        Bind.IsOpen = false;
         _stateStart = "Постоянно";
         BindItem.Content = "Постоянно";
     }

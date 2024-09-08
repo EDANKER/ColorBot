@@ -6,7 +6,7 @@ using TriggerValoran.Interface.IJsonServices;
 using TriggerValoran.Interface.IScreenServices;
 using TriggerValoran.Interface.IWorkWithServices;
 using TriggerValoran.Model.DataStateUser;
-using TriggerValoran.Model.TriggerSettings;
+using TriggerValoran.Model.Settings.TriggerSettings;
 using NullReferenceException = System.NullReferenceException;
 
 namespace TriggerValoran.Service.WorkWithServices;
@@ -61,7 +61,7 @@ public class WorkWithServices(
 
     public bool ClickForStart(TriggerSettings triggerSettings)
     {
-        return evenServices.ClickForStart(0x22);
+        return evenServices.ClickForStart(ByteButton(triggerSettings.SettingsButton.Start));
     }
 
     public bool SaveSettings(TriggerSettings item)

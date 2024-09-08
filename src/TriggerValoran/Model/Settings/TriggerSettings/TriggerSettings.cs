@@ -1,4 +1,4 @@
-﻿namespace TriggerValoran.Model.TriggerSettings;
+﻿namespace TriggerValoran.Model.Settings.TriggerSettings;
 
 public class TriggerSettings(int count, int boxSizeX, int boxSizeY, int sleepTimeRepeatFire, int sleepTimeOneFire, string boxColor, bool sitDown, bool walkStop, SettingsButton.SettingsButton settingsButton, string stateStart)
 {

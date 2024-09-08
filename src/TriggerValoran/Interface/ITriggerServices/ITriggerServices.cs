@@ -1,4 +1,5 @@
 ﻿using TriggerValoran.Model.DataStateUser;
+using TriggerValoran.Model.Settings.TriggerSettings;
 using TriggerValoran.Model.TriggerSettings;
 
 namespace TriggerValoran.Interface.ITriggerServices;
