@@ -60,10 +60,6 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "SharpDX.Direct3D9": {
-              "target": "Package",
-              "version": "[4.2.0, )"
-            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[9.0.0-preview.6.24327.6, )"

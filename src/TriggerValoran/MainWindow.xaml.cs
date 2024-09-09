@@ -85,11 +85,12 @@ public partial class MainWindow : Window
             _screenServices = new ScreenServices();
             _tJsonServices = new JsonServices<TriggerSettings>();
             _bJsonServices = new JsonServices<Dictionary<string, byte>>();
-            
+
             _triggerServices =
                 new TriggerServices(new WorkWithServices(_colorServices, _evenServices, _screenServices,
-                        _tJsonServices, _bJsonServices, _gJsonServices, _httpServices));
+                    _tJsonServices, _bJsonServices, _gJsonServices, _httpServices));
         }
+
         Update();
         Task.Run(Start);
     }
@@ -103,11 +104,15 @@ public partial class MainWindow : Window
 
     private void Start()
     {
-        _triggerServices.SaveButton();
-        while (true)
+        if (_triggerServices.SaveButton())
         {
-            _triggerServices.Trigger(Update());
+            while (true)
+            {
+                _triggerServices.Trigger(Update());
+            }
         }
+
+        throw new Exception();
     }
 
     private void BoxX(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -121,7 +126,7 @@ public partial class MainWindow : Window
         TextY.Text = $"Box по Y {e.NewValue.ToString("0")}px";
         _boxY = (int)e.NewValue;
     }
-    
+
     private void SleepOneFire(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         TextSleepFire.Text = $"Повторный выстрел время {e.NewValue.ToString("0")} секунд";
@@ -161,6 +166,7 @@ public partial class MainWindow : Window
     private void Count3(object sender, RoutedEventArgs e)
     {
         NameItemCountFire.Content = "3" + " выстрел";
+        _countFire = 3;
         CountFire.IsOpen = false;
     }
 
@@ -266,19 +272,25 @@ public partial class MainWindow : Window
 
     private void ActiveTrigger(object sender, RoutedEventArgs e)
     {
-        _start = _triggerServices.SelectButton();
-        BindActiveTrigger.Content = _triggerServices.SelectButton();
+        /*
+            _start = _triggerServices.SelectButton();
+            BindActiveTrigger.Content = _triggerServices.SelectButton();
+        */
     }
 
     private void SitDownTrigger(object sender, RoutedEventArgs e)
     {
-        _sitDown = _triggerServices.SelectButton();
-        BindSitDownTrigger.Content = _triggerServices.SelectButton();
+        /*
+            _sitDown = _triggerServices.SelectButton();
+            BindSitDownTrigger.Content = _triggerServices.SelectButton();
+        */
     }
 
     private void FireTrigger(object sender, RoutedEventArgs e)
     {
-        _fire = _triggerServices.SelectButton();
-        BindFireTrigger.Content = _triggerServices.SelectButton();
+        /*
+            _fire = _triggerServices.SelectButton();
+            BindFireTrigger.Content = _triggerServices.SelectButton();
+        */
     }
 }
