@@ -5175,7 +5175,8 @@
       "outputPath": "C:\\Users\\Rider666\\Desktop\\ColorBot\\src\\TriggerValoran\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Rider666\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Rider666\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"

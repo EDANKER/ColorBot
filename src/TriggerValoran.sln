@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriggerValoran", "TriggerValoran\TriggerValoran.csproj", "{3EFFC569-676C-4971-B890-F07AE85A1D57}"
 EndProject
 Global
@@ -12,5 +15,11 @@ Global
 		{3EFFC569-676C-4971-B890-F07AE85A1D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EFFC569-676C-4971-B890-F07AE85A1D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EFFC569-676C-4971-B890-F07AE85A1D57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {631AEAD0-808A-4188-B8B7-7A83DF9FCB24}
 	EndGlobalSection
 EndGlobal
