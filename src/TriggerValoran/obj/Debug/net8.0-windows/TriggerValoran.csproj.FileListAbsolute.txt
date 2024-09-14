@@ -68,3 +68,5 @@ C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\r
 C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\TriggerValoran.pdb
 C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\TriggerValoran.genruntimeconfig.cache
 C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\ref\TriggerValoran.dll
+C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\TriggerValoran_MarkupCompile.lref
+C:\Users\Rider666\Desktop\ColorBot\src\TriggerValoran\obj\Debug\net8.0-windows\App.baml

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using TriggerValoran.Abstract.Color;
 using TriggerValoran.Interface.IColorServices;
@@ -51,6 +52,7 @@ public partial class MainWindow : Window
     private readonly RedColor _redColor;
     private readonly YellowColor _yellowColor;
 
+    private Point _pos;
     private int _boxY;
     private int _boxX;
     private int _sleepTime;
@@ -118,18 +120,18 @@ public partial class MainWindow : Window
     private void BoxX(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         TextX.Text = $"Box по X {e.NewValue.ToString("0")}px";
-        _boxX = (int)e.NewValue;
+        BoxRad.Width = _boxX = (int)e.NewValue;
     }
 
     private void BoxY(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         TextY.Text = $"Box по Y {e.NewValue.ToString("0")}px";
-        _boxY = (int)e.NewValue;
+        BoxRad.Height = _boxY = (int)e.NewValue;
     }
 
     private void SleepOneFire(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        TextSleepFire.Text = $"Повторный выстрел время {e.NewValue.ToString("0")} секунд";
+        TextSleepFire.Text = $"Выстрел черещ {e.NewValue.ToString("0")} с";
         _sleepTime = (int)e.NewValue;
     }
 
@@ -165,21 +167,21 @@ public partial class MainWindow : Window
 
     private void Count3(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "3" + " выстрел";
+        NameItemCountFire.Content = "3" + " выстрела";
         _countFire = 3;
         CountFire.IsOpen = false;
     }
 
     private void Count1(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "1" + " выстрел";
+        NameItemCountFire.Content = "1" + " выстрела";
         _countFire = 1;
         CountFire.IsOpen = false;
     }
 
     private void Count2(object sender, RoutedEventArgs e)
     {
-        NameItemCountFire.Content = "2" + " выстрел";
+        NameItemCountFire.Content = "2" + " выстрела";
         _countFire = 2;
         CountFire.IsOpen = false;
     }
@@ -224,7 +226,7 @@ public partial class MainWindow : Window
         _isSitDown = jTriggerSettings.SitDown;
         _isWalkStop = jTriggerSettings.WalkStop;
         SliderX.Value = _boxX;
-        NameItemCountFire.Content = _countFire + " выстрел";
+        NameItemCountFire.Content = _countFire + " выстрела";
         IsSitDown.IsChecked = _isSitDown;
         IsWalkStop.IsChecked = _isWalkStop;
         SliderTimeFire.Value = _sleepTime;
@@ -292,5 +294,19 @@ public partial class MainWindow : Window
             _fire = _triggerServices.SelectButton();
             BindFireTrigger.Content = _triggerServices.SelectButton();
         */
+    }
+
+    private void Close(object sender, RoutedEventArgs e)
+    {
+        Environment.Exit(0);
+    }
+
+    private void WinMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.LeftButton == MouseButtonState.Pressed)
+        {
+            _pos = e.GetPosition(this);
+            DragMove();
+        }
     }
 }

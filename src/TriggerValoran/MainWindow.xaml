@@ -5,57 +5,179 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Background="Green"
+        WindowStyle="None"
+        MouseDown="WinMouseDown"
         BorderThickness="10"
-        Title="Edankryzo-Trigger" Height="600" Width="900">
-    <Grid Background="Green">
-        <StackPanel Width="300" Background="#212121" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-            <TextBlock HorizontalAlignment="Center" FontSize="20"  Text="Box по Y 0" x:Name="TextY" Foreground="White"></TextBlock>
-            <Slider x:Name="SliderY" Foreground="White" ToolTip="Размер по Y" Value="0" Minimum="0" Maximum="50" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="BoxY"></Slider>
-            <TextBlock HorizontalAlignment="Center" FontSize="20"  Text="Box по X 0" x:Name="TextX" Foreground="White"></TextBlock>
-            <Slider x:Name="SliderX" Foreground="White" ToolTip="Размер по X" Value="0" Minimum="0" Maximum="50" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="BoxX"></Slider>
-            <TextBlock HorizontalAlignment="Center" FontSize="11"  Text="Выстрел через секунд 0" x:Name="TextSleepFire" Foreground="White"></TextBlock>
-            <Slider x:Name="SliderTimeFire" Foreground="White" ToolTip="Промежуток времени между выстрелом" Value="0" Minimum="0" Maximum="500" SelectionStart="0" Width="150" IsDirectionReversed="False" ValueChanged="SleepOneFire"></Slider>
-            <ToggleButton x:Name="IsSitDown" Content="Включить присидание" Checked="SitDown" Unchecked="OffSitDown"></ToggleButton>
-            <ToggleButton x:Name="IsWalkStop" Content="Включить остановку" Checked="WalkStop" Unchecked="OffWalkStop"></ToggleButton>
-        </StackPanel>
-        <StackPanel Width="300" Background="#212121" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
-            <Image HorizontalAlignment="Center" Width="200" Source="./Data/Photo/Enemy.png"></Image>
-            <Button Background="Purple" x:Name="NameItemColor" Click="OpenColor" Content="Фиолетовый"></Button>
-            <Popup Placement="Center" StaysOpen="False" x:Name="Color">
-                <ListBox>
-                    <Button Click="ColorPurple" Content="Фиолетовый"></Button>
-                    <Button Click="ColorRed" Content="Красный"></Button>
-                    <Button Click="ColorYellow" Content="Желтый"></Button>
-                </ListBox>
-            </Popup>
-            <Button x:Name="NameItemCountFire" Click="OpenCountFire" Content="2 выстрела"></Button>
-            <Popup Placement="Center" StaysOpen="False" x:Name="CountFire">
-                <ListBox>
-                    <Button Click="Count1" Content="1 выстрел"></Button>
-                    <Button Click="Count2" Content="2 выстрела"></Button>
-                    <Button Click="Count3" Content="3 выстрела"></Button>
-                </ListBox>
-            </Popup>
-            <Button x:Name="BindActiveTrigger" Click="ActiveTrigger" Content="Shift активация"></Button>
-            <Button x:Name="BindSitDownTrigger" Click="SitDownTrigger" Content="Ctrl приседание по кнопке"></Button>
-            <Button x:Name="BindFireTrigger" Click="FireTrigger" Content="V нажатие кнопки при активации"></Button>
-        </StackPanel>
-        <StackPanel Width="300" Background="#212121" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">
+        Title="Edankryzo-Trigger" Height="860" Width="700">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="DarkGreen" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Green" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Popup}">
+            <Setter Property="PlacementTarget" Value="{Binding ElementName=OpenPopup}" />
+            <Setter Property="AllowsTransparency" Value="True" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="5,0" />
+            <Setter Property="TickFrequency" Value="10" />
+            <Setter Property="TickPlacement" Value="BottomRight" />
+            <Setter Property="IsDirectionReversed" Value="False" />
+        </Style>
+        <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="#212121">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border VerticalAlignment="Top" Height="530" Width="300" Background=" #343E40" Grid.Row="0" Grid.Column="0">
             <StackPanel>
-                
-            </StackPanel>
-            <StackPanel VerticalAlignment="Bottom">
-                <Button Click="Save" Content="Сохранить настройки"></Button>
-                <Button Click="Get" Content="Загрузить данные"></Button>
-                <Button x:Name="BindItem" Click="OpenStateStart" Content="По нажатию"></Button>
-                <Popup Placement="Center" StaysOpen="False" x:Name="Bind">
+                <Button Style="{StaticResource btnLightRed}" Background="Purple" x:Name="NameItemColor"
+                        Click="OpenColor"
+                        Content="Фиолетовый">
+                </Button>
+                <Popup Placement="Center" StaysOpen="False" x:Name="Color">
                     <ListBox>
-                        <Button Click="Click" Content="По нажатию"></Button>
-                        <Button Click="Cycle" Content="Постоянно"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="ColorPurple" Content="Фиолетовый"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="ColorRed" Content="Красный"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="ColorYellow" Content="Желтый"></Button>
                     </ListBox>
                 </Popup>
+                <Button Style="{StaticResource btnLightRed}" x:Name="NameItemCountFire" Click="OpenCountFire"
+                        Content="2 выстрела">
+                </Button>
+                <Popup Placement="Center" StaysOpen="False" x:Name="CountFire">
+                    <ListBox>
+                        <Button Style="{StaticResource btnLightRed}" Click="Count1" Content="1 выстрел"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="Count2" Content="2 выстрела"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="Count3" Content="3 выстрела"></Button>
+                    </ListBox>
+                </Popup>
+                <Button Style="{StaticResource btnLightRed}" x:Name="BindFireTrigger" Click="FireTrigger"
+                        Content="V нажатие">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}" x:Name="BindActiveTrigger" Click="ActiveTrigger"
+                        Content="Shift активация">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}"
+                        Content="W прямо">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}"
+                        Content="S назад">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}"
+                        Content="A лево">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}" x:Name="BindSitDownTrigger" Click="SitDownTrigger"
+                        Content="D право">
+                </Button>
+                <Button Style="{StaticResource btnLightRed}" x:Name="BindItem" Click="OpenStateStart"
+                        Content="По нажатию">
+                </Button>
+                <Popup Placement="Center" StaysOpen="False" x:Name="Bind">
+                    <ListBox>
+                        <Button Style="{StaticResource btnLightRed}" Click="Click" Content="По нажатию"></Button>
+                        <Button Style="{StaticResource btnLightRed}" Click="Cycle" Content="Постоянно"></Button>
+                    </ListBox>
+                </Popup>
+                <ToggleButton Margin="4" x:Name="IsSitDown" Content="Включить присидание" Checked="SitDown"
+                              Unchecked="OffSitDown">
+                </ToggleButton>
+                <ToggleButton Margin="4" x:Name="IsWalkStop" Content="Включить остановку" Checked="WalkStop"
+                              Unchecked="OffWalkStop">
+                </ToggleButton>
             </StackPanel>
-        </StackPanel>
+        </Border>
+        <Border
+            CornerRadius="20"
+            BorderThickness="1"
+            Padding="5"
+            BorderBrush="#000" VerticalAlignment="Bottom" Width="300" Background=" #343E40" Grid.Row="0"
+            Grid.Column="0">
+            <StackPanel>
+                <TextBlock FontSize="20" Height="30" Background="Black" Margin="10">Name - Edgar</TextBlock>
+                <TextBlock FontSize="20" Height="30" Background="Black" Margin="10">Time - 244 часа</TextBlock>
+                <TextBlock FontSize="20" Height="30" Background="Black" Margin="10">Day - 3 дня</TextBlock>
+                <TextBlock FontSize="20" Height="30" Background="Black" Margin="10">VersionCheat - 0.0.1</TextBlock>
+                <TextBlock FontSize="20" Height="30" Background="Black" Margin="10">NameCheat - LiteCheat</TextBlock>
+            </StackPanel>
+        </Border>
+        <Border VerticalAlignment="Top" Height="400" Width="250" Background="#343E40" Grid.Row="0" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="0">
+                    <Image Margin="10" Width="190" Source="C:\Users\Rider666\Downloads\image (1).png"></Image>
+                    <Rectangle x:Name="BoxRad" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"
+                               Fill="Transparent"
+                               Stroke="Black" StrokeThickness="10" />
+                </Canvas>
+                <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Text="Box по Y 0" x:Name="TextY"></TextBlock>
+                    <Slider Width="230" Height="30" x:Name="SliderY" ToolTip="Размер по Y" Value="0" Minimum="1"
+                            Maximum="100" ValueChanged="BoxY">
+                    </Slider>
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Text="Box по X 0" x:Name="TextX"></TextBlock>
+                    <Slider Width="230" Height="30" x:Name="SliderX" ToolTip="Размер по X" Value="0" Minimum="1"
+                            Maximum="100" ValueChanged="BoxX">
+                    </Slider>
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Text="Выстрел через 0 с"
+                               x:Name="TextSleepFire">
+                    </TextBlock>
+                    <Slider Width="230" Height="30" x:Name="SliderTimeFire"
+                            ToolTip="Промежуток времени между выстрелом"
+                            Value="0" Minimum="0"
+                            Maximum="500" ValueChanged="SleepOneFire">
+                    </Slider>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border VerticalAlignment="Bottom" Width="300" Background=" #343E40" Grid.Row="0" Grid.Column="1">
+            <StackPanel>
+                <Button Style="{StaticResource btnLightRed}" Click="Close" Content="Закрыть чит"></Button>
+                <Button Style="{StaticResource btnLightRed}" Click="Save" Content="Сохранить настройки"></Button>
+                <Button Style="{StaticResource btnLightRed}" Click="Get" Content="Загрузить данные"></Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

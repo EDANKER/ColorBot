@@ -12,7 +12,6 @@
           "Microsoft.NETFramework.ReferenceAssemblies": "1.0.3",
           "Microsoft.NETFramework.ReferenceAssemblies.net461": "1.0.3",
           "Newtonsoft.Json": "13.0.3",
-          "SharpDX.Direct3D9": "4.2.0",
           "System.Drawing.Common": "9.0.0-preview.6.24327.6"
         },
         "runtime": {
@@ -167,29 +166,6 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
-      "SharpDX/4.2.0": {
-        "dependencies": {
-          "NETStandard.Library": "1.6.1"
-        },
-        "runtime": {
-          "lib/netstandard1.1/SharpDX.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.0.0"
-          }
-        }
-      },
-      "SharpDX.Direct3D9/4.2.0": {
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "SharpDX": "4.2.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/SharpDX.Direct3D9.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.0.0"
-          }
-        }
-      },
       "System.AppContext/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -955,20 +931,6 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
-    },
-    "SharpDX/4.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3pv0LFMvfK/dv1qISJnn8xBeeT6R/FRvr0EV4KI2DGsL84Qlv6P7isWqxGyU0LCwlSVCJN3jgHJ4Bl0KI2PJww==",
-      "path": "sharpdx/4.2.0",
-      "hashPath": "sharpdx.4.2.0.nupkg.sha512"
-    },
-    "SharpDX.Direct3D9/4.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1KgqXvPj/j5hLYxfcOQoJdHskamu7EWg60n9LBAYhun7dR+sKS0ZDNb7NuKwFP1bM0HZqvokjXQIf3oA2NpdqA==",
-      "path": "sharpdx.direct3d9/4.2.0",
-      "hashPath": "sharpdx.direct3d9.4.2.0.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",

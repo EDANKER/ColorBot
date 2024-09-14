@@ -17,7 +17,7 @@ public class ColorServices(Abstract.Color.Color purpleColor, YellowColor yellowC
                 int x = bitmap.Width / 2;
                 int y = bitmap.Height / 2;
 
-                for (int i = x - boxSizeX; i < x + boxSizeX;)
+                for (int i = x - boxSizeX; i < x + boxSizeX; i++)
                 {
                     for (int j = y - boxSizeY; j < y + boxSizeY; j++)
                     {
@@ -41,8 +41,6 @@ public class ColorServices(Abstract.Color.Color purpleColor, YellowColor yellowC
                             break;
                         }
                     }
-
-                    break;
                 }
 
                 return foundColor;
