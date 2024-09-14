@@ -49,12 +49,11 @@ public partial class MainWindow : Window
     private readonly HttpRequestMessage _httpRequestMessage;
     private readonly HttpResponseMessage _httpResponseMessage;
     private readonly Color _purpleColor;
-    private readonly RedColor _redColor;
-    private readonly YellowColor _yellowColor;
+    private readonly Color _redColor;
+    private readonly Color _yellowColor;
 
-    private Point _pos;
-    private int _boxY;
-    private int _boxX;
+    private int _boxY = 10;
+    private int _boxX = 10;
     private int _sleepTime;
     private string _boxColor = "Purple";
     private int _countFire = 2;
@@ -305,7 +304,6 @@ public partial class MainWindow : Window
     {
         if (e.LeftButton == MouseButtonState.Pressed)
         {
-            _pos = e.GetPosition(this);
             DragMove();
         }
     }

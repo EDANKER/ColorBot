@@ -1,11 +1,9 @@
 ﻿using System.Drawing;
 using TriggerValoran.Interface.IColorServices;
-using TriggerValoran.Model.Color.RedColor;
-using TriggerValoran.Model.Color.YellowColor;
 
 namespace TriggerValoran.Service.ColorServices;
 
-public class ColorServices(Abstract.Color.Color purpleColor, YellowColor yellowColor, RedColor redColor) : IColorServices
+public class ColorServices(Abstract.Color.Color purpleColor, Abstract.Color.Color yellowColor, Abstract.Color.Color redColor) : IColorServices
 {
     public bool ItemColor(Bitmap? bitmap, int boxSizeX, int boxSizeY, string boxColor)
     {
@@ -42,11 +40,9 @@ public class ColorServices(Abstract.Color.Color purpleColor, YellowColor yellowC
                         }
                     }
                 }
-
-                return foundColor;
             }
 
-            return false;
+            return foundColor;
         }
         catch(Exception)
         {
