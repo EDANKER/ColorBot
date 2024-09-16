@@ -147,12 +147,12 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Canvas Grid.Row="0">
-                    <Image Width="190" Source="./Data/Photo/Enemy.png"></Image>
+                    <Image Width="200" Source="./Data/Photo/Enemy.png"></Image>
                     <Rectangle x:Name="BoxRad" HorizontalAlignment="Center" VerticalAlignment="Center" Width="10" Height="10"
                                Fill="Transparent"
                                Stroke="Black" StrokeThickness="10" />
                 </Canvas>
-                <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                <StackPanel Margin="10" Grid.Row="1" VerticalAlignment="Bottom">
                     <TextBlock FontSize="20" HorizontalAlignment="Center" Text="Box по Y 0" x:Name="TextY"></TextBlock>
                     <Slider Width="230" Height="30" x:Name="SliderY" ToolTip="Размер по Y" Value="10" Minimum="10"
                             Maximum="100" ValueChanged="BoxY">
